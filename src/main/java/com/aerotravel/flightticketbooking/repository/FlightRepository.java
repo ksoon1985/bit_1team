@@ -2,10 +2,7 @@ package com.aerotravel.flightticketbooking.repository;
 
 import com.aerotravel.flightticketbooking.model.Airport;
 import com.aerotravel.flightticketbooking.model.Flight;
-import com.aerotravel.flightticketbooking.model.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import java.time.LocalDate;
 import java.util.List;
 
