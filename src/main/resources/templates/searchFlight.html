@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <form action="/flight/search" method="post">
+    <form action="/flight/search" method="post" class="search-form">
         <div class="row">
 
             <div class="from-group col-md-4">
@@ -53,7 +53,7 @@
 
         </div>
     </form>
-    <div class="row">
+    <div class="row result-row">
         <th:block th:if="${notFound !=null}">
             <div class="col-12">
                 <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
@@ -61,8 +61,8 @@
         </th:block>
         <th:block th:if="${flights!=null}">
             <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-6">
-                    <h1 style="color: darkblue">Result</h1>
+                <div class="">
+                    <h1 style="color: darkblue">조회결과</h1>
                 </div>
 
             </div>
@@ -70,14 +70,14 @@
                 <thead>
                 <tr class="table-active">
                     <th scope="col">ID</th>
-                    <th scope="col">Flight Number</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                    <th scope="col">Departure time</th>
-                    <th scope="col">Arrival time</th>
-                    <th scope="col">Flight Charge</th>
-                    <th scope="col">Aircraft</th>
-                    <th scope="col">Available Seats</th>
+                    <th scope="col">항공편</th>
+                    <th scope="col">출발지</th>
+                    <th scope="col">도착지</th>
+                    <th scope="col">출발시간</th>
+                    <th scope="col">도착시간</th>
+                    <th scope="col">비행요금</th>
+                    <th scope="col">항공사</th>
+                    <th scope="col">잔여좌석</th>
                 </tr>
                 </thead>
                 <tbody>

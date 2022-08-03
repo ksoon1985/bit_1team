@@ -1,6 +1,6 @@
-let idEl = document.querySelector('#id')
-let pwEl = document.querySelector('#pw')
-let btnEl = document.querySelector('button')
+let idEl = document.querySelector('#txtUsername')
+let pwEl = document.querySelector('#txtPassword')
+let btnEl = document.querySelector('#btnSubmit')
 function login() {
     if (idEl.value == "") {
       idEl.nextElementSibling.classList.add('warning')
