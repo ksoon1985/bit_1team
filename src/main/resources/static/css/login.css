@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
 * {margin: 0; padding: 0; box-sizing: border-box;}
+
 body {
-  font-family: 'Nanum Gothic', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    position: relative;
 }
 .login-form {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
   padding: 0 20%;
+  margin-top: 20%;
 }
 .login-form h2 {
   font-size: 28px;
@@ -125,15 +126,18 @@ h1.req {
   75% {transform: translateX(8px);}
 }
 
+@media ( min-width: 300px ) {
+    .login-form {
+        padding: 0 30%;
+    }
+}
+
 @media ( min-width: 900px ) {
   .login-form {
     padding: 0 35%;
   }
   .login-form h2 {
-    margin-bottom: 100px;
-  }
-  .int-area {
-    margin-top: 60px;
+    margin-bottom: 50px;
   }
   .btn-area {
     margin-top: 90px;
@@ -141,4 +145,11 @@ h1.req {
   .btn-area button {
     height: 40px;
   }
+}
+
+@media ( min-width: 1500px ) {
+    .login-form {
+        padding: 0 40%;
+        margin-top: 15%;
+    }
 }
