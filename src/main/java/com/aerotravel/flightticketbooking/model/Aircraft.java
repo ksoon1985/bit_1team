@@ -45,7 +45,41 @@ public class Aircraft {
     }
 
     public String getModel() {
-        return model;
+        String aircraftName = "";
+
+        switch ((int) getAircraftId()) {
+            case 1:
+                aircraftName = "Aero-K " + "A320-214";
+                break;
+            case 2:
+                aircraftName = "AirBusan " + "A320-232";
+                break;
+            case 3:
+                aircraftName = "AirSeoul " + "A321-231";
+                break;
+            case 4:
+                aircraftName = "Asiana " + "A321-251NX";
+                break;
+            case 5:
+                aircraftName = "FlyGangwon " + "B737-800";
+                break;
+            case 6:
+                aircraftName = "HiAir " + "ATR 72-500";
+                break;
+            case 7:
+                aircraftName = "Jeju " + "B737-800";
+                break;
+            case 8:
+                aircraftName = "JinAir " + "B777-200ER";
+                break;
+            case 9:
+                aircraftName = "KoreanAir " + "B737-9B5ER";
+                break;
+            case 10:
+                aircraftName = "Tway " + "A330-300";
+                break;
+        }
+        return aircraftName;
     }
 
     public void setModel(String model) {
