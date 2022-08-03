@@ -16,7 +16,6 @@ import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,6 @@ public class MainController {
     public String showHomePage() {
         return "index";
     }
-
 
     @GetMapping("/airport/new")
     public String showAddAirportPage(Model model) {
@@ -202,30 +200,6 @@ public class MainController {
 
         model.addAttribute("airports", airportService.getAllAirports());
         return "searchFlight";
-    }
-    @GetMapping("/sample")
-    public String showflight(Model model) {
-        model.addAttribute("airports", airportService.getAllAirports());
-        model.addAttribute("flights", null);
-        return "sample";
-    }
-
-    @PostMapping("/sample")
-    public String searchsample(@RequestParam("departureAirport") int departureAirport,
-                               @RequestParam("departureTime") String departureTime,
-                               Model model) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate deptTime = LocalDate.parse(departureTime, dtf);
-        Airport depAirport = airportService.getAirportById(departureAirport);
-        HashMap<String,Long> flights = flightService.getAllFlightsByAirportTime(depAirport, deptTime);
-        if(flights.isEmpty()){
-            model.addAttribute("notFound", "No Record Found!");
-        }else{
-            model.addAttribute("flights", flights);
-        }
-
-        model.addAttribute("airports", airportService.getAllAirports());
-        return "sample";
     }
 
     @GetMapping("/flight/book")
