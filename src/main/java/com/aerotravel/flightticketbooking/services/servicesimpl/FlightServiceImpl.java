@@ -51,8 +51,8 @@ public class FlightServiceImpl implements FlightService {
         return flightRepository.findAllByDepartureAirportEqualsAndDestinationAirportEqualsAndDepartureDateEquals(depAirport, destAirport, depDate);
     }
 
-    @Override
+/*    @Override
     public List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate) {
         return flightRepository.findAllFlightWithAnnotation2(depAirport,destAirport,depDate);
-    }
+    }*/
 }

@@ -1,9 +1,6 @@
 package com.aerotravel.flightticketbooking.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -25,6 +22,7 @@ public class Passenger {
     private String address;
 
     @ManyToOne
+    @JoinColumn(name = "flight_flight_id")
     private Flight flight;
 
     public Passenger() {

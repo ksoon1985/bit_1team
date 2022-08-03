@@ -1,6 +1,7 @@
 package com.aerotravel.flightticketbooking.controller;
 
 import com.aerotravel.flightticketbooking.model.*;
+import com.aerotravel.flightticketbooking.repository.RoleRepository;
 import com.aerotravel.flightticketbooking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,16 +9,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -30,12 +30,14 @@ public class MainController {
     FlightService flightService;
     @Autowired
     PassengerService passengerService;
-
     @Autowired
     UserService userService;
-
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    RoleRepository roleRepository;
+
     @GetMapping("/")
     public String showHomePage() {
         return "index";
@@ -181,16 +183,15 @@ public class MainController {
                                Model model) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate deptTime = LocalDate.parse(departureTime, dtf);
-/*        Airport depAirport = airportService.getAirportById(departureAirport);
-        Airport destAirport = airportService.getAirportById(destinationAirport);*/
+        Airport depAirport = airportService.getAirportById(departureAirport);
+        Airport destAirport = airportService.getAirportById(destinationAirport);
 
         if (departureAirport == destinationAirport) {
             model.addAttribute("AirportError", "Departure and destination airport cant be same!");
             model.addAttribute("airports", airportService.getAllAirports());
             return "searchFlight";
         }
-        List<Flight> flights = flightService.getAllFlightsByAirportAndDepartureTime2(departureAirport, destinationAirport, departureTime);
-
+        List<Flight> flights = flightService.getAllFlightsByAirportAndDepartureTime(depAirport, destAirport, deptTime);
         if(flights.isEmpty()){
             model.addAttribute("notFound", "No Record Found!");
         }else{
@@ -307,19 +308,21 @@ public class MainController {
     @GetMapping("/signUp")
     public String showSignUpPage(){return "signUp";}
 
-    @PostMapping(value = "/signUp")
-    public String signUpUser(@RequestParam String username,
-                             @RequestParam String password,
-                             @RequestParam String email){
+    @PostMapping("/signUp")
+    public String signUp(User user){
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
+        // 비밀번호 암호화
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userService.saveUser(user);
+        // 권한 설정 (다대다 매핑 주의,,,)
+        List<Role> roleList = new ArrayList<>();
+        Optional<Role> optional = roleRepository.findById(2);
+        roleList.add(optional.get());
+        user.setRoles(roleList);
 
-        return "index";
+        userService.signUp(user);
+
+        return "redirect:/";
     }
 
     @GetMapping("fancy")

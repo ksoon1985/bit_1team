@@ -13,10 +13,15 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable=false)
+    @NotBlank(message = "* First Name is required")
     private String firstname;
 
+    @Column(name="middlename", nullable=true)
     private String middlename;
 
+    @Column(nullable=false)
+    @NotBlank(message = "* Last Name is required")
     private String lastname;
 
     @Column(nullable=false, unique=true)

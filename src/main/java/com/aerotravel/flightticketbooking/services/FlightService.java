@@ -15,6 +15,6 @@ public interface FlightService {
     public abstract void deleteFlightById(long flightId);
     public abstract List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
 
-    public abstract List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate);
+    //public abstract List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate);
 
 }
