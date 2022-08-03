@@ -3,25 +3,272 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master-page}">
 
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@900&family=Russo+One&family=Square+Peg&display=swap');
+        .menu_wrap{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 40px;
+            margin-top: 70px;
+            margin-bottom: 100px;
+
+        }
+
+        .reserve{
+            float: left;
+            width:29%;
+            box-sizing: border-box;
+        }
+        .checkin{
+            float: left;
+            margin-left: 10%;
+            width:16%;
+            box-sizing: border-box;}
+        .flight{
+            float: right;
+            width:45%;
+            box-sizing: border-box;}
+        .img-thumbnail{
+            margin-top: 100px;
+            margin-right: 20px;
+            margin-bottom: 100px;
+        }
+        .bitair1{
+            margin-left: 330px;
+        }
+
+        .imgtrh{
+            margin-bottom: 50px;
+
+        }
+
+        .img-thumbnail2{
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .imgeverttext{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+        .str1{
+            margin-left: 20px;
+        }
+        .str2{
+            margin-left: 50px;
+        }
+        .str3{
+            margin-left: 100px;
+        }
+        .str4{
+            margin-left: 140px;
+        }
+        .one-way1{
+            margin-left: 20px;
+        }
+        .one-way2{
+            margin-left: 220px;
+        }
+        .one-way3{
+            margin-left: 190px;
+        }
+        .one-way4{
+            margin-left: 210px;
+        }
+        .krw{
+            font-size: 30px;
+        }
+        .krw1{
+            margin-left: 20px;
+        }
+        .krw2{
+            margin-left: 85px;
+        }
+        .krw3{
+            margin-left: 60px;
+        }
+        .krw4{
+            margin-left: 80px;
+        }
+        .krw1-1{
+            margin-left: 5px;
+        }
+        .korona{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .container1{
+            font-family: 'Nanum Myeongjo', serif;
+            background-color: #F8F8F8;
+
+        }
+
+
+        </style>
+</head>
+
 <body>
 <th:block layout:fragment="content">
 
-    <h2>Welcome to Aero Travel website!</h2>
-    <p>
-        Aero Travels is an airline reservation company. It has numbers of branches spread across the world. A person who wants to reserve a flight ticket must contact any of the nearest Aero Travels branch. The Aero Travels manages flight operations manually, but as its customers grow in number, managing flight operations manually becomes difficult and time consuming. So, it would be better to use an automated system.
-        The Flight Ticket Booking (FTB) provides a solution for online flight ticket booking. It will have functionalities like schedule flights, search flight, book flight for customers, and verify flight ticket. The system should be convenient and user-friendly.
+    <div class="row" >
+        <img th:src="@{/img/bitair.jpg}" class="bitair1" alt="" width="500" height="150">
+    </div>
 
-        The users include:
-        1.     Admin who can add flight, cancel flight, add aircraft, remove aircraft, and add airport.
-        2.     Travel Agents who can search flight, book flight or cancel reservation for customer.
-        3.     Customers who can search flights and verify their ticket in the system.
+    <div id="slideWrap" class="carousel" data-ride="carousel">
 
-        Customer information include first name, last name, Date of birth, gender, phone number, and address.
+        <div class="carousel-inner">
+            <a class="carousel-control-prev" href="#slideWrap" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#slideWrap" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+            <div class="carousel-item active">
+                <img th:src="@{/img/header-hg.jpg}" alt="" width="1100" height="500">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/img/background.jpg}" alt="" width="1100" height="500">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/img/air.jpg}" alt="" width="1100" height="500">
+            </div>
+        </div>
+    </div>
+    <div id="slideWrap1" class="carousel slide" data-ride="carousel">
+        <div class="menu_wrap">
+            <div class="reserve">
+                <a class="reserve-a text-dark" href="#" ><i class="bi bi-calendar3-week"></i>예약조회</a>
+            </div>
+            <div class="checkin">
+                <a class="checkin-a text-dark" href="#"><i class="bi bi-calendar-check-fill"></i>체크인</a>
+            </div>
+            <div class="flight">
+                <a class="flight text-dark" href="#"><i class="bi bi-calendar-date-fill"></i>운항정보</a>
+            </div>
+        </div>
+    </div>
 
-        An airport has numbers of aircrafts. An aircraft has an id, manufacturer, model, and type. A flight has an aircraft, flight number, departure time, departure airport, arrival airport, and arrival time, and flight charge. A flight also has a list of passengers(customers) which is booked a ticked for that flight.
+    <div class="imgevent">
+        <img th:src="@{/img/img1.jpg}" class="img-thumbnail" alt="...">
+        <img th:src="@{/img/img2.jpg}" class="img-thumbnail" alt="...">
+        <img th:src="@{/img/img3.jpg}" class="img-thumbnail" alt="...">
+        <img th:src="@{/img/img4.jpg}" class="img-thumbnail" alt="...">
+        <img th:src="@{/img/img5.jpg}" class="img-thumbnail" alt="...">
+    </div>
 
-    </p>
-    <img th:src="@{/img/ali.jpg}" style="width:300px"/>
+    <div id="imgtr" class="imgtr">
+        <h2 class="imgtrh">추천 항공권</h2>
+        <a class="imgtrh1" href="#"><img th:src="@{/img/huku.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1" href="#"><img th:src="@{/img/saipan.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1" href="#"><img th:src="@{/img/jeju.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1" href="#"><img th:src="@{/img/sebu.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+    </div>
+
+    <div class="imgeverttext">
+        <a class="str1 text-dark" href="#">서울/인천 -> 후쿠오카</a>
+        <a class="str2 text-dark" href="#">인천 -> 사이판</a>
+        <a class="str3 text-dark" href="#">부산 -> 제주</a>
+        <a class="str4 text-dark" href="#">인천 -> 하와이</a>
+    </div>
+
+    <div class="one-way">
+        <strong class="one-way1">편도 총액</strong>
+        <strong class="one-way2">편도 총액</strong>
+        <strong class="one-way3">편도 총액</strong>
+        <strong class="one-way4">편도 총액</strong>
+    </div>
+
+    <div class="krw">
+        <strong class="krw1">KRW</strong>
+        <strong class="krw1-1 text-info">187,000~</strong>
+        <strong class="krw2 ">KRW</strong>
+        <strong class="krw1-1 text-info">213,000~</strong>
+        <strong class="krw3">KRW</strong>
+        <strong class="krw1-1 text-info">198,000~</strong>
+        <strong class="krw4">KRW</strong>
+        <strong class="krw1-1 text-info">209,000~</strong>
+    </div>
+
+    <div class="korona">
+        <img th:src="@{/img/korona.jpg}" width="1100">
+    </div>
+
+    <footer class="footer-95942 ">
+
+        <div class="container1 ">
+            <div class="row justify-content-center mx-0 no-gutters">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-sm-6 col-md mb-4 mb-md-0 ">
+                            <h4>회사안내</h4>
+                            <ul class="list-unstyled nav-links">
+                                <li><a href="#" class="ab text-secondary">공지사항</a></li>
+                                <li><a href="#" class="ab text-secondary">채용정보</a></li>
+                                <li><a href="#" class="ab text-secondary">기업개요</a></li>
+                                <li><a href="#" class="ab text-secondary">기업지배구조</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md mb-4 mb-md-0">
+                            <h4>약관</h4>
+                            <ul class="list-unstyled nav-links">
+                                <li><a href="#" class="cd text-secondary">개인정보</a></li>
+                                <li><a href="#" class="cd text-secondary">이용약관</a></li>
+                                <li><a href="#" class="cd text-secondary">사이트맵</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md mb-4 mb-md-0 ">
+                            <h4>대리점</h4>
+                            <ul class="list-unstyled nav-links" >
+                                <li><a href="#" class="de text-secondary">뉴스</a></li>
+                                <li><a href="#" class="de text-secondary">면세점</a></li>
+
+
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md mb-4 mb-md-0">
+                            <h4>안내</h4>
+                            <ul class="list-unstyled nav-links">
+                                <li><a href="#" class="fg text-secondary">투자정보</a></li>
+                                <li><a href="#" class="fg text-secondary">홍보센터</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md mb-4 mb-md-0">
+                            <h4>고객서비스</h4>
+                            <ul class="list-unstyled nav-links">
+                                <li><a href="#" class="hi text-secondary">자주 묻는 질문(FAQ)</a></li>
+                                <li><a href="#" class="hi text-secondary">고객의 말씀(Q&A)</a></li>
+                                <li><a href="#" class="hi text-secondary">기내 유실물 찾기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-md-12 pb-3">
+                    <div class="border-top">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <ul class="list-unstyled social mb-0 pb-0 nav-left">
+                        <li><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li><a href="#"><span class="icon-facebook"></span></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center">
+                    <span class="small">Colorlib &copy; All Rights Reserved.</span>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </footer>
+
 </th:block>
 </body>
 </html>
