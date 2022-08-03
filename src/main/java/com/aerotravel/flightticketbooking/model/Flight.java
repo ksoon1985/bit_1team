@@ -3,6 +3,7 @@ package com.aerotravel.flightticketbooking.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,8 +117,9 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public double getFlightCharge() {
-        return flightCharge;
+    public String getFlightCharge() {
+        DecimalFormat formatter = new DecimalFormat("###,###");
+        return formatter.format(flightCharge)+" 원";
     }
 
     public void setFlightCharge(double flightCharge) {
