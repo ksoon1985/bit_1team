@@ -309,7 +309,7 @@ public class MainController {
     public String showSignUpPage(){return "signUp";}
 
     @PostMapping("/signUp")
-    public String signUp(User user){
+    public String signUp(@Valid User user, BindingResult bindingResult){
 
         // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // url 인증 관련
         security.authorizeRequests()
-                .antMatchers("/","/login","/signUp","/flight/search","/flight/book/verify", "/flight/book/cancel", "/img/**").permitAll()
+                .antMatchers("/","/barChart","/login","/signUp","/flight/search","/flight/book/verify", "/flight/book/cancel", "/img/**").permitAll()
                 .antMatchers( "/flight/book**", "/flight/book/new").authenticated()
                 .antMatchers("/**").hasRole("ADMIN");
 
