@@ -25,6 +25,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <form action="/flight/book/verify" method="post" style="padding-bottom: 15px; border-bottom: 1px solid #333;">
         <div class="row">
 
@@ -46,12 +47,16 @@
 
         </div>
     </form>
+=======
+
+>>>>>>> bin
     <div class="row">
         <th:block th:if="${notFound !=null}">
             <div class="col-12">
                 <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
             </div>
         </th:block>
+<<<<<<< HEAD
         <th:block th:if="${passenger !=null}">
             <div class="col-12" style="margin-bottom: 10px">
                 <p style="color: green; font-weight: bold">Verified Successfully!</p>
@@ -96,9 +101,46 @@
                 </tr>
                 </thead>
                 <tbody>
+=======
+        <hr/>
+>>>>>>> bin
 
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-active">
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Passport Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Flight Number</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Departure</th>
+                <th scope="col">Arrival</th>
+                <th scope="col">Flight Charge</th>
+                <th scope="col">Aircraft</th>
+            </tr>
+            </thead>
+            <div th:each="verifypassenger, iterStat:${verifyPassengers}">
                 <tr style="background-color: #fdfdfd">
+                    <th scope="row" th:text="${verifypassenger.passenger.passengerId}">Dark</th>
+                    <td th:text="${verifypassenger.passenger.firstName}"></td>
+                    <td th:text="${verifypassenger.passenger.lastName}"></td>
+                    <td th:text="${verifypassenger.passenger.phoneNumber}"></td>
+                    <td th:text="${verifypassenger.passenger.passportNumber}"></td>
+                    <td th:text="${verifypassenger.passenger.email}"></td>
+                    <td th:text="${verifypassenger.flight.flightNumber}"></td>
+                    <td th:text="${verifypassenger.flight.departureAirport.airportName}"></td>
+                    <td th:text="${verifypassenger.flight.destinationAirport.airportName}"></td>
+                    <td th:text="${verifypassenger.flight.departureDate+' '+verifypassenger.flight.departureTime}"></td>
+                    <td th:text="${verifypassenger.flight.arrivalDate+' '+verifypassenger.flight.arrivalTime}"></td>
+                    <td th:text="${verifypassenger.flight.flightCharge}"></td>
+                    <td th:text="${verifypassenger.flight.aircraft.model}"></td>
+            </div>
 
+<<<<<<< HEAD
                     <td th:text="${flight.flightNumber}"></td>
                     <td th:text="${passenger.flight.departureAirport.airportName}"></td>
                     <td th:text="${passenger.flight.destinationAirport.airportName}"></td>
@@ -118,6 +160,13 @@
             </form>
             </th:block>
         </th:block>
+=======
+            </tbody>
+
+        </table>
+
+
+>>>>>>> bin
     </div>
 </th:block>
 </body>
