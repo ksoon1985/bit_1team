@@ -5,6 +5,11 @@
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}">
     <script defer type="text/javascript" th:src="@{/js/signup.js}"></script>
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 
 
@@ -20,8 +25,8 @@
             <div class="int-area input-id">
                 <input id="txtUsername" name="username" type="text" autofocus="autofocus" required/>
                 <label for="txtUsername">아이디</label>
-<!--                <div class="sameck">중복확인</div>-->
-<!--                <span class="id-check"></span>-->
+                <div class="sameck" type="button" onclick="usernameCheck()">중복확인</div>
+                <span class="id-check"></span>
             </div>
 
             <div class="int-area">

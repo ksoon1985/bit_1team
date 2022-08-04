@@ -11,6 +11,8 @@ const pwCheckSpanEl = document.querySelector('span.pwcheckspan')
 const form = document.querySelector('form')
 const idCheckEl = document.querySelector('span.id-check')
 
+const idBoolChk = false;
+
 function pwValCheck() {
     let pw_passed = true
     let pattern1 = /[0-9]/;
@@ -64,6 +66,7 @@ function pwSameCheck() {
 idEl.onkeyup = function() {
     var v = this.value;
     this.value = v.replace(/[^a-z0-9]/gi, '');
+    this.idBoolChk = false;
 }
 
 // 숫자만 입력
@@ -125,16 +128,55 @@ function formCheck() {
       console.log(idCheckEl.value)
       return true
     }
-//    else if (!register()) {
-//      alert('중복중복')
-//      return false
-//    }
+    else if (!register()) {
+      alert('중복 체크해주세요!!')
+      return false
+    }
     else {
       alert('다시 한번 확인해주세요~')
       return false
     }
 }
 
+        function usernameCheck() {
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        //const username = $("#txtUsername").val();
+
+        $.ajax({
+        type: "post",
+        url: "/signUp/usernameChk",
+        data: {"username": idEl.value},
+        beforeSend : function(xhr){
+        		xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+
+            if (result.result == "0") {
+                alert("사용 가능한 아이디 입니다.");
+                $('.id-check').text('사용 가능한 아이디 입니다.')
+                $('.id-check').css('color', 'green')
+                $('#txtUsername').attr('readonly', true);
+                idBoolChk = true;
+                return false;
+            } else if (result.result == "1") {
+                alert("이미 사용중인 아이디 입니다.");
+                $('.id-check').text('중복된 아이디 입니다.')
+                $('.id-check').css('color', 'red')
+                $("#username").focus();
+            } else {
+                alert("success이지만 result 값이 undefined 잘못됨");
+            }
+        },
+        error: function (request, status,error) {
+            alert("ajax 실행 실패");
+            alert("code:" + request.status + "\n" + "error :" + error);
+        }
+        });
+
+}
 
 //$('.sameck').click(function() {
 //    $.ajax({

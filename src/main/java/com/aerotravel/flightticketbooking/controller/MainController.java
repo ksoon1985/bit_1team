@@ -15,9 +15,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -323,6 +321,15 @@ public class MainController {
         userService.signUp(user);
 
         return "redirect:/";
+    }
+
+    @RequestMapping("/signUp/usernameChk")
+    @ResponseBody
+    public Map<String, Object> usernameChk(@RequestParam String username){
+        System.out.println("###############username controller");
+        Map<String, Object> mv = new HashMap<>();
+        mv.put("result",userService.usernameChk(username));
+        return mv;
     }
 
     @GetMapping("fancy")

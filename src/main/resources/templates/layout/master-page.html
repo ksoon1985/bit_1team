@@ -68,8 +68,7 @@
             <li class="nav-item">
                 <a class="nav-link active text-secondary" aria-current="page" href="/flight/search">운행정보</a>
             </li>
-                <a class="nav-link active text-secondary" aria-current="page" href="/flight/search">운행정보</a>
-            </li>
+
 
             <th:block sec:authorize="hasRole('ROLE_AGENT')">
                 <li class="nav-item">
@@ -93,9 +92,13 @@
 
             <th:block sec:authorize="isAuthenticated()">
 
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/logout">로그아웃</a>
-                </li>
+                <a href="/logout">
+                    <form role="form" th:action="@{/logout}" method="post">
+                        <button class="btn btn-secondary my-2 my-sm-2" type="submit">로그아웃</button>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+
+                </a>
 
             </th:block>
 
