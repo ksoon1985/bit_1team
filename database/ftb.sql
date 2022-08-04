@@ -245,6 +245,29 @@ INSERT INTO `users_roles` VALUES (1,1),(2,2);
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+
+--
+-- Dumping data for table `users_roles`
+--
+DROP TABLE IF EXISTS `verify_passenger`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `verify_passenger` (
+  `id` int(11) NOT NULL,
+  `passenger_id` bigint(20) NOT NULL,
+  `flight_id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `verify_p_1` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`),
+  CONSTRAINT `verify_p_2` FOREIGN KEY (`passenger_id`) REFERENCES `passenger` (`passenger_id`),
+  CONSTRAINT `verify_p_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

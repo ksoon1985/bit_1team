@@ -2,9 +2,13 @@ package com.aerotravel.flightticketbooking.controller;
 
 import com.aerotravel.flightticketbooking.model.*;
 import com.aerotravel.flightticketbooking.repository.RoleRepository;
+import com.aerotravel.flightticketbooking.repository.UserRepository;
 import com.aerotravel.flightticketbooking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +36,13 @@ public class MainController {
     UserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Autowired
+    VerifyPassengerService verifyPassengerService;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/")
     public String showHomePage() {
@@ -277,42 +285,40 @@ public class MainController {
         passenger1.setFlight(flight);
         passengerService.savePassenger(passenger1);
         model.addAttribute("passenger", passenger1);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        String username = userDetails.getUsername();
+        User user= userRepository.findByusername(username);
+        VerifyPassenger verifyPassenger=new VerifyPassenger(flight,passenger,user);
+        verifyPassengerService.saveVerifyPassenger(verifyPassenger);
         return "confirmationPage";
     }
 
     @GetMapping("/flight/book/verify")
-    public String showVerifyBookingPage() {
-        return "verifyBooking";
-    }
-
-    @PostMapping("/flight/book/verify")
-    public String showVerifyBookingPageResult(@RequestParam("flightId") long flightId,
-                                              @RequestParam("passengerId") long passengerId,
-                                              Model model) {
-
-        Flight flight = flightService.getFlightById(flightId);
-        if (flight != null) {
-            model.addAttribute("flight", flight);
-            List<Passenger> passengers = flight.getPassengers();
-            Passenger passenger = null;
-            for (Passenger p : passengers) {
-                if (p.getPassengerId() == passengerId) {
-                    passenger = passengerService.getPassengerById(passengerId);
-                    model.addAttribute("passenger", passenger);
-                }
-            }
-            if (passenger != null) {
-                return "verifyBooking";
-            }else{
-                model.addAttribute("notFound", "Not Found");
-                return "verifyBooking";
-            }
+    public String showVerifyBookingPage(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        String username = userDetails.getUsername();
+        User users= userRepository.findByusername(username);
+        model.addAttribute("users",users);
+        List<VerifyPassenger> verifyPassengers=verifyPassengerService.getAllVerifyPassenger(users);
+        /*List<Passenger>passengers=new ArrayList<>();
+        List<Flight>flights=new ArrayList<>();
+        for(VerifyPassenger verifyPassenger: verifyPassengers){
+            passengers.add(verifyPassenger.getPassenger());
+            flights.add(verifyPassenger.getFlight());
+        }*/
+        if (verifyPassengers != null) {
+            model.addAttribute("verifyPassengers",verifyPassengers);
+            //model.addAttribute("flights", flights);
+            //model.addAttribute("passengers",passengers);
         } else {
             model.addAttribute("notFound", "Not Found");
             return "verifyBooking";
         }
-
+        return "verifyBooking";
     }
+
 
     @PostMapping("/flight/book/cancel")
     public String cancelTicket(@RequestParam("passengerId") long passengerId, Model model){
