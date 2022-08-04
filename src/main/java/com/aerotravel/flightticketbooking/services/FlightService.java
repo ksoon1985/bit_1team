@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface FlightService {
     public abstract Page<Flight> getAllFlightsPaged(int pageNum);
@@ -15,7 +16,7 @@ public interface FlightService {
     public abstract Flight saveFlight(Flight flight);
     public abstract void deleteFlightById(long flightId);
     public abstract List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
-    public abstract HashMap<String,Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
+    public abstract List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
 
     //public abstract List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate);
 

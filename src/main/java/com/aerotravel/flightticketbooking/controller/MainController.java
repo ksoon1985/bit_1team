@@ -15,9 +15,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -201,7 +199,39 @@ public class MainController {
         model.addAttribute("airports", airportService.getAllAirports());
         return "searchFlight";
     }
+    @GetMapping("/sample")
+    public String showflight(Model model) {
+        model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("flights", null);
+        return "sample";
+    }
 
+    @PostMapping("/sample")
+    public String searchsample(@RequestParam("departureAirport") int departureAirport,
+                               @RequestParam("departureTime") String departureTime,
+                               Model model) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate deptTime = LocalDate.parse(departureTime, dtf);
+        Airport depAirport = airportService.getAirportById(departureAirport);
+        List<Flight> flights = flightService.getAllFlightsByAirportTime(depAirport, deptTime);
+        HashMap<String,Integer> map=new HashMap<>();
+        if(flights.isEmpty()){
+            model.addAttribute("notFound", "No Record Found!");
+        }else{
+            for(Flight  list:flights){
+                String s=list.getDestinationAirport().getAirportName();
+                if(map.containsKey(s)){
+                    map.put(s,map.get(s)+1);
+                }else{
+                    map.put(s,1);
+                }
+            }
+            model.addAttribute("flights", map);
+        }
+
+        model.addAttribute("airports", airportService.getAllAirports());
+        return "sample";
+    }
     @GetMapping("/flight/book")
     public String showBookFlightPage(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
