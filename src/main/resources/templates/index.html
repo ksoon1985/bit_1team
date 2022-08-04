@@ -5,7 +5,122 @@
 
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@900&family=Russo+One&family=Square+Peg&display=swap');
+        .menu_wrap{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 40px;
+            margin-top: 70px;
+            margin-bottom: 100px;
+
+        }
+
+        .reserve{
+            float: left;
+            width:29%;
+            box-sizing: border-box;
+        }
+        .checkin{
+            float: left;
+            margin-left: 10%;
+            width:16%;
+            box-sizing: border-box;}
+        .flight{
+            float: right;
+            width:45%;
+            box-sizing: border-box;}
+        .img-thumbnail{
+            margin-top: 100px;
+            margin-right: 20px;
+            margin-bottom: 100px;
+        }
+        .bitair1{
+            margin-left: 330px;
+        }
+
+        .imgtrh{
+            margin-bottom: 50px;
+
+        }
+
+        .img-thumbnail2{
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .imgeverttext{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+        .str1{
+            margin-left: 20px;
+        }
+        .str2{
+            margin-left: 50px;
+        }
+        .str3{
+            margin-left: 100px;
+        }
+        .str4{
+            margin-left: 140px;
+        }
+        .one-way1{
+            margin-left: 20px;
+        }
+        .one-way2{
+            margin-left: 220px;
+        }
+        .one-way3{
+            margin-left: 190px;
+        }
+        .one-way4{
+            margin-left: 210px;
+        }
+        .krw{
+            font-size: 30px;
+        }
+        .krw1{
+            margin-left: 20px;
+        }
+        .krw2{
+            margin-left: 85px;
+        }
+        .krw3{
+            margin-left: 60px;
+        }
+        .krw4{
+            margin-left: 80px;
+        }
+        .krw1-1{
+            margin-left: 5px;
+        }
+        .korona{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .container1{
+            font-family: 'Nanum Myeongjo', serif;
+            background-color: #F8F8F8;
+
+        }
+        @media ( min-width: 1200px) {
+        .cotainer2{
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        </style>
 </head>
 
 <body>
@@ -25,13 +140,13 @@
                 <span class="carousel-control-next-icon"></span>
             </a>
             <div class="carousel-item active">
-                <img th:src="@{/img/header-hg.jpg}" alt="" width="1100" height="500">
+                <img th:src="@{/img/header-hg.jpg}"  alt="" width="1100" height="500">
             </div>
             <div class="carousel-item">
-                <img th:src="@{/img/background.jpg}" alt="" width="1100" height="500">
+                <img th:src="@{/img/background.jpg}"  alt="" width="1100" height="500">
             </div>
             <div class="carousel-item">
-                <img th:src="@{/img/air.jpg}" alt="" width="1100" height="500">
+                <img th:src="@{/img/air.jpg}"  alt="" width="1100" height="500">
             </div>
         </div>
     </div>
@@ -49,27 +164,39 @@
         </div>
     </div>
 
-    <div class="imgevent">
-        <img th:src="@{/img/img1.jpg}" class="img-thumbnail" alt="...">
-        <img th:src="@{/img/img2.jpg}" class="img-thumbnail" alt="...">
-        <img th:src="@{/img/img3.jpg}" class="img-thumbnail" alt="...">
-        <img th:src="@{/img/img4.jpg}" class="img-thumbnail" alt="...">
-        <img th:src="@{/img/img5.jpg}" class="img-thumbnail" alt="...">
+    <div class="cotainer2 text-center" >
+        <div class="row">
+            <div class="col">
+        <img th:src="@{/img/img1.jpg}" class="img-thumbnail " alt="...">
+            </div>
+            <div class="col">
+            <img th:src="@{/img/img2.jpg}" class="img-thumbnail " alt="...">
+            </div>
+                <div class="col">
+                    <img th:src="@{/img/img3.jpg}" class="img-thumbnail " alt="...">
+                </div>
+                    <div class="col">
+                    <img th:src="@{/img/img4.jpg}" class="img-thumbnail " alt="...">
+                    </div>
+                        <div class="col">
+                        <img th:src="@{/img/img5.jpg}" class="img-thumbnail " alt="...">
+                        </div>
+        </div>
     </div>
 
     <div id="imgtr" class="imgtr">
         <h2 class="imgtrh">추천 항공권</h2>
-        <a class="imgtrh1" href="#"><img th:src="@{/img/huku.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1" href="#"><img th:src="@{/img/saipan.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1" href="#"><img th:src="@{/img/jeju.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1" href="#"><img th:src="@{/img/sebu.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1 " href="#"><img th:src="@{/img/huku.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1 " href="#"><img th:src="@{/img/saipan.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1 " href="#"><img th:src="@{/img/jeju.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
+        <a class="imgtrh1 " href="#"><img th:src="@{/img/sebu.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
     </div>
 
     <div class="imgeverttext">
-        <a class="str1 text-dark" href="#">서울/인천 -> 후쿠오카</a>
-        <a class="str2 text-dark" href="#">인천 -> 사이판</a>
-        <a class="str3 text-dark" href="#">부산 -> 제주</a>
-        <a class="str4 text-dark" href="#">인천 -> 하와이</a>
+        <a class="str1 text-dark " href="#">서울/인천 -> 후쿠오카</a>
+        <a class="str2 text-dark " href="#">인천 -> 사이판</a>
+        <a class="str3 text-dark " href="#">부산 -> 제주</a>
+        <a class="str4 text-dark " href="#">인천 -> 하와이</a>
     </div>
 
     <div class="one-way">
@@ -93,9 +220,7 @@
     <div class="korona">
         <img th:src="@{/img/korona.jpg}" width="1100">
     </div>
-</th:block>
 
-<!--<th:block>
     <footer class="footer-95942 ">
 
         <div class="container1 ">
@@ -168,6 +293,7 @@
 
         </div>
     </footer>
-</th:block>-->
+
+</th:block>
 </body>
 </html>
