@@ -10,7 +10,6 @@ const pwSpanEl = document.querySelector('span.pwspan')
 const pwCheckSpanEl = document.querySelector('span.pwcheckspan')
 const form = document.querySelector('form')
 const sameChkEl = document.querySelector('sameck')
-const idCheckEl = document.querySelector('span.id-check')
 
 function pwValCheck() {
     let pw_passed = true
@@ -175,31 +174,3 @@ function usernameCheck() {
         }
     });
 }
-
-//$('.sameck').click(function() {
-//    $.ajax({
-//    method : 'post',
-//    url : '/idcheck',
-//    data : {id : id.value}
-//    }).done(function(결과){
-//      console.log($('#id').val())
-//      if ($('#id').val() == '') {
-//        $('#id').next().addClass('warning')
-//        setTimeout(() => {
-//          $('#id').next().removeClass('warning')
-//        }, 1500);
-//        $('.id-check').text('')
-//      }
-//      else {
-//        if (결과.checkRes == 1) {
-//        $('.id-check').text('사용 가능한 아이디 입니다.')
-//        $('.id-check').css('color', 'green')
-//      }
-//      else {
-//        $('.id-check').text('중복된 아이디 입니다.')
-//        $('.id-check').css('color', 'red')
-//      }
-//      }
-//    }).fail(function() {
-//    })
-//})
