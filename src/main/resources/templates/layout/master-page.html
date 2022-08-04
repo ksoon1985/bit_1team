@@ -39,27 +39,66 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarColor02">
-        <div sec:authorize="isAuthenticated()">
+<!--        <div sec:authorize="isAuthenticated()">
             <span style="color: white">Welcome</span>
             <span style="color: white" sec:authentication="principal.username"></span>
             <a href="/logout">
                 <button class="btn btn-secondary my-2 my-sm-2" type="submit">Logout</button>
             </a>
-        </div>
+        </div>-->
 
         <ul class="nav justify-content-end">
+
+
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/highcharts">HighCharts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/airports">Airports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/aircrafts">Aircrafts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/flights">Flights</a>
+                </li>
+            </th:block>
+
             <li class="nav-item">
                 <a class="nav-link active text-secondary" aria-current="page" href="/flight/search">운행정보</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">예약조회</a>
+                <a class="nav-link active text-secondary" aria-current="page" href="/flight/search">운행정보</a>
             </li>
+
+            <th:block sec:authorize="hasRole('ROLE_AGENT')">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary"  href="/flight/book">운행예약</a>
+                </li>
+            </th:block>
+
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="/login">로그인</a>
+                <a class="nav-link text-secondary" href="/flight/book/verify">예약조회</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="/signUp">회원가입</a>
-            </li>
+
+            <th:block sec:authorize="!isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/login">로그인</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/signUp">회원가입</a>
+                </li>
+            </th:block>
+
+            <th:block sec:authorize="isAuthenticated()">
+
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/logout">로그아웃</a>
+                </li>
+
+            </th:block>
+
         </ul>
 
     </div>
