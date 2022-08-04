@@ -35,28 +35,28 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarColor02">
-        <div sec:authorize="isAuthenticated()">
-            <span style="color: white">Welcome</span>
-            <span style="color: white" sec:authentication="principal.username"></span>
-            <a href="/logout">
-                <button class="btn btn-secondary my-2 my-sm-2" type="submit">Logout</button>
-            </a>
-        </div>
 
         <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active text-secondary" aria-current="page" href="#">운행정보</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link text-secondary" href="#">예약조회</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="/login">로그인</a>
+                <a class="nav-link active text-secondary" aria-current="page" href="#">운행정보</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">회원가입</a>
+
+                <a class="nav-link text-secondary"  type="submit" href="#">회원가입</a>
             </li>
+
         </ul>
+        <div sec:authorize="isAuthenticated()">
+            <span style="color: white" sec:authentication="principal.username"></span>
+            <a href="/logout" class="nav-link text-secondary" type="submit">로그아웃</a>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a class="nav-link text-secondary" type="submit" href="/login">로그인</a>
+        </div>
 
     </div>
 </nav>
