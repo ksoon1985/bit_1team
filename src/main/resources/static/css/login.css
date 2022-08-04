@@ -11,7 +11,8 @@ body {
   transform: translate(-50%, 0);
   width: 100%;
   padding: 0 20%;
-  margin-top: 20%;
+  margin-top: 15%;
+  background-color: #faf8f9;
 }
 .login-form h2 {
   font-size: 28px;

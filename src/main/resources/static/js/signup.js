@@ -1,9 +1,11 @@
-const nameEl = document.querySelector('#name')
-const idEl = document.querySelector('#id')
-const pwEl = document.querySelector('#pw')
-const pwCheckEl = document.querySelector('#pwcheck')
-const phoneEl = document.querySelector('#phone')
-const btnEl = document.querySelector('button')
+const idEl = document.querySelector('#txtUsername')
+const pwEl = document.querySelector('#txtPassword')
+const pwCheckEl = document.querySelector('#txtPassword-check')
+const firstNameEl = document.querySelector('#txtFirstname')
+const lastNameEl = document.querySelector('#txtLastname')
+const emailEl = document.querySelector('#txtEmail')
+const btnEl = document.querySelector('#btnSubmit')
+
 const pwSpanEl = document.querySelector('span.pwspan')
 const pwCheckSpanEl = document.querySelector('span.pwcheckspan')
 const form = document.querySelector('form')
@@ -65,24 +67,17 @@ idEl.onkeyup = function() {
 }
 
 // 숫자만 입력
-phoneEl.onkeyup = function() {
-    var regexp = /[^0-9]/gi;
-    this.onkeyup = function(e){
-      var v = this.value;
-      this.value = v.replace(regexp,'');
-    }
-}
+//phoneEl.onkeyup = function() {
+//    var regexp = /[^0-9]/gi;
+//    this.onkeyup = function(e){
+//      var v = this.value;
+//      this.value = v.replace(regexp,'');
+//    }
+//}
 
 // submit(회원가입 버튼) 시 유효성 체크
-// 추가적으로 비밀번호의 길이나 특수문자 포함 여부 등의 기능 넣을지 의논
 function register() {
-    if (nameEl.value == "") {
-      nameEl.nextElementSibling.classList.add('warning')
-      setTimeout(function() {
-        nameEl.nextElementSibling.classList.remove('warning')
-      }, 1500)
-    }
-    else if (idEl.value == "") {
+    if (idEl.value == "") {
       idEl.nextElementSibling.classList.add('warning')
       setTimeout(function() {
         idEl.nextElementSibling.classList.remove('warning')
@@ -100,10 +95,22 @@ function register() {
         pwCheckEl.nextElementSibling.classList.remove('warning')
       }, 1500)
     }
-    else if (phoneEl.value == "") {
-      phoneEl.nextElementSibling.classList.add('warning')
+    else if (firstNameEl.value == "") {
+      firstNameEl.nextElementSibling.classList.add('warning')
       setTimeout(function() {
-        phoneEl.nextElementSibling.classList.remove('warning')
+        firstNameEl.nextElementSibling.classList.remove('warning')
+      }, 1500)
+    }
+    else if (lastNameEl.value == "") {
+      lastNameEl.nextElementSibling.classList.add('warning')
+      setTimeout(function() {
+        lastNameEl.nextElementSibling.classList.remove('warning')
+      }, 1500)
+    }
+    else if (emailEl.value == "") {
+      emailEl.nextElementSibling.classList.add('warning')
+      setTimeout(function() {
+        emailEl.nextElementSibling.classList.remove('warning')
       }, 1500)
     }
     else if (idCheckEl.textContent == "" || idCheckEl.textContent == "중복된 아이디 입니다.") {
@@ -118,10 +125,10 @@ function formCheck() {
       console.log(idCheckEl.value)
       return true
     }
-    else if (!register()) {
-      alert('중복중복')
-      return false
-    }
+//    else if (!register()) {
+//      alert('중복중복')
+//      return false
+//    }
     else {
       alert('다시 한번 확인해주세요~')
       return false
@@ -129,30 +136,30 @@ function formCheck() {
 }
 
 
-$('.sameck').click(function() {
-    $.ajax({
-    method : 'post',
-    url : '/idcheck',
-    data : {id : id.value}
-    }).done(function(결과){
-      console.log($('#id').val())
-      if ($('#id').val() == '') {
-        $('#id').next().addClass('warning')
-        setTimeout(() => {
-          $('#id').next().removeClass('warning')
-        }, 1500);
-        $('.id-check').text('')
-      }
-      else {
-        if (결과.checkRes == 1) {
-        $('.id-check').text('사용 가능한 아이디 입니다.')
-        $('.id-check').css('color', 'green')
-      }
-      else {
-        $('.id-check').text('중복된 아이디 입니다.')
-        $('.id-check').css('color', 'red')
-      }
-      }
-    }).fail(function() {
-    })
-})
+//$('.sameck').click(function() {
+//    $.ajax({
+//    method : 'post',
+//    url : '/idcheck',
+//    data : {id : id.value}
+//    }).done(function(결과){
+//      console.log($('#id').val())
+//      if ($('#id').val() == '') {
+//        $('#id').next().addClass('warning')
+//        setTimeout(() => {
+//          $('#id').next().removeClass('warning')
+//        }, 1500);
+//        $('.id-check').text('')
+//      }
+//      else {
+//        if (결과.checkRes == 1) {
+//        $('.id-check').text('사용 가능한 아이디 입니다.')
+//        $('.id-check').css('color', 'green')
+//      }
+//      else {
+//        $('.id-check').text('중복된 아이디 입니다.')
+//        $('.id-check').css('color', 'red')
+//      }
+//      }
+//    }).fail(function() {
+//    })
+//})

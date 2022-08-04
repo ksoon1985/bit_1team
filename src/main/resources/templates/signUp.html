@@ -2,51 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master-page}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}">
+    <script defer type="text/javascript" th:src="@{/js/signup.js}"></script>
+</head>
 
 
 <th:block layout:fragment="content">
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 jumbotron">
-            <h2 style="text-align: center">SignUp Form</h2>
+    <section class="signup-form">
+        <h2>회원가입</h2>
+        <form name="formSignUp" th:action="@{/signUp}" method="post" onsubmit="return formCheck()">
+            <div th:if="${param.error}" class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Test !!!
+            </div>
 
-            <form name="formSignUp" th:action="@{/signUp}" method="post" >
-                <div th:if="${param.error}" class="alert alert-dismissible alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Test !!!
-                </div>
+            <div class="int-area input-id">
+                <input id="txtUsername" name="username" type="text" autofocus="autofocus" required/>
+                <label for="txtUsername">아이디</label>
+<!--                <div class="sameck">중복확인</div>-->
+<!--                <span class="id-check"></span>-->
+            </div>
 
-                <div class="form-group">
-                    <label for="txtUsername">Username</label>
-                    <input id="txtUsername" name="username" type="text" class="form-control" autofocus="autofocus"/>
-                </div>
+            <div class="int-area">
+                <input id="txtPassword" name="password" type="password" onkeyup="pwValCheck()" required/>
+                <label for="txtPassword">비밀번호</label>
+                <span class="pwspan"></span>
+            </div>
 
-                <div class="form-group">
-                    <label for="txtPassword">Password</label>
-                    <input id="txtPassword" name="password" type="password" class="form-control"/>
-                </div>
+            <div class="int-area">
+                <input id="txtPassword-check" name="password-check" type="password" onkeyup="pwSameCheck()" required/>
+                <label for="txtPassword-check">비밀번호 확인</label>
+                <span class="pwcheckspan"></span>
+            </div>
 
-                <div class="form-group">
-                    <label for="txtFirstname">Firstname</label>
-                    <input id="txtFirstname" name="firstname" type="text" class="form-control"/>
-                </div>
+            <div class="int-area">
+                <input id="txtFirstname" name="firstname" type="text" required/>
+                <label for="txtFirstname">성</label>
+            </div>
 
-                <div class="form-group">
-                    <label for="txtLastname">Lastname</label>
-                    <input id="txtLastname" name="lastname" type="text" class="form-control"/>
-                </div>
+            <div class="int-area">
+                <input id="txtLastname" name="lastname" type="text" required/>
+                <label for="txtLastname">이름</label>
+            </div>
 
-                <div class="form-group">
-                    <label for="txtEmail">Email</label>
-                    <input id="txtEmail" name="email" type="email" class="form-control"/>
-                </div>
+            <div class="int-area">
+                <input id="txtEmail" name="email" type="email" required/>
+                <label for="txtEmail">이메일</label>
+            </div>
 
-                <div style="float:right;">
-                    <a href="/" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
-                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Sign Up</button>
-                </div>
-            </form>
-        </div>
-    </div>
+            <div class="btn-area">
+<!--                    <a href="/" class="btn btn-outline-warning">Cancel</a>-->
+                <button id="btnSubmit" type="submit" class="btn btn-outline-success" onclick="register()">회원가입</button>
+            </div>
+        </form>
+    </section>
 </th:block>
 
 </html>
