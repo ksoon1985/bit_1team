@@ -140,26 +140,16 @@ function formCheck() {
 
         function usernameCheck() {
 
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-
-        //const username = $("#txtUsername").val();
-
         $.ajax({
         type: "post",
         url: "/signUp/usernameChk",
         data: {"username": idEl.value},
-        beforeSend : function(xhr){
-        		xhr.setRequestHeader(header, token);
-        },
         success: function (result) {
 
             if (result.result == "0") {
                 alert("사용 가능한 아이디 입니다.");
                 $('.id-check').text('사용 가능한 아이디 입니다.')
                 $('.id-check').css('color', 'green')
-                $('#txtUsername').attr('readonly', true);
-                idBoolChk = true;
                 return false;
             } else if (result.result == "1") {
                 alert("이미 사용중인 아이디 입니다.");

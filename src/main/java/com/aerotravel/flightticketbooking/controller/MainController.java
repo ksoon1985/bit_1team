@@ -4,6 +4,9 @@ import com.aerotravel.flightticketbooking.model.*;
 import com.aerotravel.flightticketbooking.repository.RoleRepository;
 import com.aerotravel.flightticketbooking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -48,29 +51,29 @@ public class MainController {
     }
 
     @PostMapping("/airport/new")
-    public String saveAirport(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult, Model model) {
+    public String saveAirport(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult,Pageable pageable, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("airport", new Airport());
             return "newAirport";
         }
         airportService.saveAirport(airport);
-        model.addAttribute("airports", airportService.getAllAirportsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
     @GetMapping("/airport/delete")
-    public String deleteAirport(@PathParam("airportId") int airportId, Model model){
+    public String deleteAirport(@PathParam("airportId") int airportId,Pageable pageable, Model model){
         airportService.deleteAirport(airportId);
-        model.addAttribute("airports", airportService.getAllAirportsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
 
     @GetMapping("/airports")
-    public String showAirportsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("airports", airportService.getAllAirportsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showAirportsList(Pageable pageable, Model model) {
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
 
@@ -81,30 +84,31 @@ public class MainController {
     }
 
     @PostMapping("/aircraft/new")
-    public String saveAircraft(@Valid @ModelAttribute("aircraft") Aircraft aircraft, BindingResult bindingResult, Model model) {
+    public String saveAircraft(@Valid @ModelAttribute("aircraft") Aircraft aircraft, BindingResult bindingResult,Pageable pageable, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("aircraft", new Aircraft());
             return "newAircraft";
         }
         aircraftService.saveAircraft(aircraft);
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(0));
-        model.addAttribute("currentPage", 0);
+
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
     @GetMapping("/aircraft/delete")
-    public String deleteAircraft(@PathParam("aircraftId") long aircraftId, Model model){
+    public String deleteAircraft(@PathParam("aircraftId") long aircraftId,Pageable pageable,Model model){
         aircraftService.deleteAircraftById(aircraftId);
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
     @GetMapping("/aircrafts")
-    public String showAircraftsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showAircraftsList(Pageable pageable, Model model) {
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
@@ -123,6 +127,7 @@ public class MainController {
                              @RequestParam("aircraft") long aircraftId,
                              @RequestParam("arrivalTime") String arrivalTime,
                              @RequestParam("departureTime") String departureTime,
+                             Pageable pageable,
                              Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -147,23 +152,24 @@ public class MainController {
         flight.setArrivalTime(arrivalTime);
         flightService.saveFlight(flight);
 
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
     @GetMapping("/flight/delete")
-    public String deleteFlight(@PathParam("flightId") long flightId, Model model){
+    public String deleteFlight(@PathParam("flightId") long flightId, Pageable pageable , Model model){
         flightService.deleteFlightById(flightId);
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
     @GetMapping("/flights")
-    public String showFlightsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("flights", flightService.getAllFlightsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showFlightsList( Pageable pageable, Model model) {
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
+
         return "flights";
     }
 
@@ -283,10 +289,10 @@ public class MainController {
     }
 
     @PostMapping("/flight/book/cancel")
-    public String cancelTicket(@RequestParam("passengerId") long passengerId, Model model){
+    public String cancelTicket(@RequestParam("passengerId") long passengerId,Pageable pageable ,Model model){
         passengerService.deletePassengerById(passengerId);
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
