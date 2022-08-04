@@ -9,9 +9,8 @@ const btnEl = document.querySelector('#btnSubmit')
 const pwSpanEl = document.querySelector('span.pwspan')
 const pwCheckSpanEl = document.querySelector('span.pwcheckspan')
 const form = document.querySelector('form')
+const sameChkEl = document.querySelector('sameck')
 const idCheckEl = document.querySelector('span.id-check')
-
-const idBoolChk = false;
 
 function pwValCheck() {
     let pw_passed = true
@@ -66,7 +65,8 @@ function pwSameCheck() {
 idEl.onkeyup = function() {
     var v = this.value;
     this.value = v.replace(/[^a-z0-9]/gi, '');
-    this.idBoolChk = false;
+    $('.sameck').attr('onclick', 'usernameCheck();');
+    $('.sameck').css('pointer-events', 'auto');
 }
 
 // 숫자만 입력
@@ -116,7 +116,7 @@ function register() {
         emailEl.nextElementSibling.classList.remove('warning')
       }, 1500)
     }
-    else if (idCheckEl.textContent == "" || idCheckEl.textContent == "중복된 아이디 입니다.") {
+    else if ($('.sameck').attr('onclick') != null) {
       return false
     }
     else {return true}
@@ -125,7 +125,6 @@ function register() {
 function formCheck() {
     if (pwValCheck() && pwSameCheck() && register()){
       alert('회원가입 성공~!~!')
-      console.log(idCheckEl.value)
       return true
     }
     else if (!register()) {
@@ -138,44 +137,43 @@ function formCheck() {
     }
 }
 
-        function usernameCheck() {
+function usernameCheck() {
 
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
 
-        //const username = $("#txtUsername").val();
-
-        $.ajax({
+    $.ajax({
         type: "post",
         url: "/signUp/usernameChk",
         data: {"username": idEl.value},
         beforeSend : function(xhr){
-        		xhr.setRequestHeader(header, token);
+                xhr.setRequestHeader(header, token);
         },
         success: function (result) {
 
-            if (result.result == "0") {
-                alert("사용 가능한 아이디 입니다.");
-                $('.id-check').text('사용 가능한 아이디 입니다.')
-                $('.id-check').css('color', 'green')
-                $('#txtUsername').attr('readonly', true);
-                idBoolChk = true;
-                return false;
-            } else if (result.result == "1") {
-                alert("이미 사용중인 아이디 입니다.");
-                $('.id-check').text('중복된 아이디 입니다.')
-                $('.id-check').css('color', 'red')
-                $("#username").focus();
+            if (idEl.value == "") {
+              idEl.nextElementSibling.classList.add('warning')
+              setTimeout(function() {
+                idEl.nextElementSibling.classList.remove('warning')
+              }, 1500)
             } else {
-                alert("success이지만 result 값이 undefined 잘못됨");
+                if (result.result == "0") {
+                    alert("사용 가능한 아이디 입니다.");
+                    $('.sameck').removeAttr('onclick');
+                    $('.sameck').css('pointer-events', 'none');
+                } else if (result.result == "1") {
+                    alert("이미 사용중인 아이디 입니다.");
+                    $("#username").focus();
+                } else {
+                    alert("success이지만 result 값이 undefined 잘못됨");
+                }
             }
         },
         error: function (request, status,error) {
             alert("ajax 실행 실패");
             alert("code:" + request.status + "\n" + "error :" + error);
         }
-        });
-
+    });
 }
 
 //$('.sameck').click(function() {

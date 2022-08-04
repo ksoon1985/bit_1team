@@ -29,6 +29,7 @@ body {
 }
 .int-area:first-child {
   margin-top: 0;
+  position: relative;
 }
 .int-area input {
   width: 100%;
@@ -127,7 +128,10 @@ span.pwcheckspan.different {
   display: flex;
 }
 .sameck {
-  width: 90px;
+  position: absolute;
+  bottom: 0;
+  right: -85px;
+  width: 80px;
   height: 50px;
   font-size: 12px;
   margin-left: 5px;
