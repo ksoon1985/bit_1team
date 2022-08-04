@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").hasRole("ADMIN");
 
         // restful 허용
-        //security.csrf().disable(); // ajax 통신하기 위해서
+        security.csrf().disable(); // ajax 통신하기 위해서
 
         // login security
         security.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error");

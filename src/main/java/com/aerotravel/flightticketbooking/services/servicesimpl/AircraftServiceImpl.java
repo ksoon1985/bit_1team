@@ -6,6 +6,7 @@ import com.aerotravel.flightticketbooking.services.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,10 @@ public class AircraftServiceImpl implements AircraftService {
 //    }
 
     @Override
-    public Page<Aircraft> getAllAircraftsPaged(int pageNum) {
-        return aircraftRepository.findAll(PageRequest.of(pageNum,5,Sort.by("model")));
+    public Page<Aircraft> getAllAircraftsPaged(Pageable pageable) {
+        int page = (pageable.getPageNumber() ==0) ? 0:(pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page,20,Sort.by("model"));
+        return aircraftRepository.findAll(pageable);
     }
 
     @Override

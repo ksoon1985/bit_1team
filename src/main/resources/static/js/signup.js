@@ -138,16 +138,10 @@ function formCheck() {
 
 function usernameCheck() {
 
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-
-    $.ajax({
+        $.ajax({
         type: "post",
         url: "/signUp/usernameChk",
         data: {"username": idEl.value},
-        beforeSend : function(xhr){
-                xhr.setRequestHeader(header, token);
-        },
         success: function (result) {
 
             if (idEl.value == "") {

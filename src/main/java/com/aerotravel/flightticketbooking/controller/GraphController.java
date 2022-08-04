@@ -1,11 +1,13 @@
 package com.aerotravel.flightticketbooking.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Controller
 public class GraphController {
 
     @GetMapping("/highcharts")
