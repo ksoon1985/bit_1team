@@ -32,6 +32,7 @@
         button.navbar-toggler {
             padding: 4px 10px;
         }
+
     </style>
 </head>
 <body>
@@ -110,7 +111,9 @@
 
                 <a href="/logout">
                     <form role="form" th:action="@{/logout}" method="post">
-                        <button class="nav-link text-secondary" type="submit">로그아웃</button>
+                        <button class="btn text-nowrap" type="submit"
+                                style="font-family: 'Noto Sans KR', sans-serif;
+                                       font-size: 18px;">로그아웃</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </a>
