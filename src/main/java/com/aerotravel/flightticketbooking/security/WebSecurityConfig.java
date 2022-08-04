@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // url 인증 관련
         security.authorizeRequests()
                 .antMatchers("/","/login","/signUp/**","/signUp","/highcharts","/flight/search","/flight/book/verify", "/flight/book/cancel", "/img/**", "/css/**", "/js/**").permitAll()
-                .antMatchers( "/flight/book**", "/flight/book/new").authenticated()
+                .antMatchers( "/flight/book**", "/flight/book/new", "/flight/**").authenticated()
                 .antMatchers("/**").hasRole("ADMIN");
 
         // restful 허용
