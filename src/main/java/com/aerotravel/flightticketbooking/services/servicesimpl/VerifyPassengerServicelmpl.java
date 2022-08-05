@@ -27,5 +27,8 @@ public class VerifyPassengerServicelmpl implements VerifyPassengerService {
     public List<VerifyPassenger> getAllVerifyPassenger(User user){
         return verifyPassengerRepository.findAllByUser(user);
     }
+    public void deleteVerifyPassengerById(Long verifypassengerId) {
+        verifyPassengerRepository.deleteById(verifypassengerId);
+    }
 
 }
