@@ -4,6 +4,11 @@
       layout:decorate="~{layout/master-page}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/searchFlight.css}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 
 <body>
@@ -13,7 +18,6 @@
             <div class="col-md-12" style="margin-bottom: 10px">
                 <h1 style="color: darkblue">어디로 떠나볼까요?</h1>
             </div>
-
         </div>
     </div>
 
@@ -50,54 +54,54 @@
             <div class="form-group col-12">
                 <button type="submit" class="btn btn-success" style="float: right">조회하기</button>
             </div>
-            <div id="container"></div>
+            <div id="container">
+            </div>
             <script th:inline="javascript">
             var airport_list=new Array();
-            var count_value=new Array;
+            var count_value=new Array();
 
-            /*[# th:each="air : ${airportList}"]*/
-            airport_list.push(/*[[${air.key}]]*/);
-            count_value.push(/*[[${air.value}]]*/);
+             /*[# th:each="map : ${airportList}"]*/
+            airport_list.push(/*[[${map.key}]]*/);
+            count_value.push(/*[[${map.value}]]*/);
              /*[/]*/
 
-            function array2(rows, columns){
-	            var arr = new Array(rows);
-                for(var i = 0; i < rows; i++){
-    	            arr[i] = new Array(colums);
-                     }
-                     return arr;
-                     }
-            var arr = array2(airport_list.length, 2);
+           var air_array = [];
+            for(var i = 0; i<airport_list.length; i++){
+              air_array[i] = [];
+              for(var j=0; j<2; j++){
+                air_array[i][j] = null;
+              }
+            }
 
             for(var i = 0; i < airport_list.length; i++){
-            arr[i][0].push(airport_list[i]);
-            arr[i][1].push(count_value[i]);
+                air_array[i][0]= airport_list[i];
+                air_array[i][1] = count_value[i];
             }
 
             const chart = Highcharts.chart('container', {
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 45
-                    }
-                },
-                title: {
-                    text: '2022 가장 인기있는 국내 여행지는?'
-                },
-                subtitle: {
-                    text: '사용자들의 선택'
-                },
-                plotOptions: {
-                    pie: {
-                        innerSize: 100,
-                        depth: 45
-                    }
-                },
-                series: [{
-                    name: '비행기 예매 현황',
-                    data: arr
-                }]
+            chart: {
+            type: 'pie',
+            options3d: {
+            enabled: true,
+            alpha: 45
+            }
+            },
+            title: {
+            text: '2022 가장 인기있는 국내 여행지는?'
+            },
+            subtitle: {
+            text: '사용자들의 선택'
+            },
+            plotOptions: {
+            pie: {
+            innerSize: 100,
+            depth: 45
+            }
+            },
+            series: [{
+            name: '비행기 예매 현황',
+            data: air_array
+            }]
             });
             </script>
             <script src="/css/searchFlight.css"></script>

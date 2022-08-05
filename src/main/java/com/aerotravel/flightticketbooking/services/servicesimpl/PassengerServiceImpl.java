@@ -1,5 +1,6 @@
 package com.aerotravel.flightticketbooking.services.servicesimpl;
 
+import com.aerotravel.flightticketbooking.model.Airport;
 import com.aerotravel.flightticketbooking.model.Flight;
 import com.aerotravel.flightticketbooking.model.Passenger;
 import com.aerotravel.flightticketbooking.repository.PassengerRepository;
