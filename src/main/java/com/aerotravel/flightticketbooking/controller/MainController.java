@@ -302,16 +302,8 @@ public class MainController {
         User users= userRepository.findByusername(username);
         model.addAttribute("users",users);
         List<VerifyPassenger> verifyPassengers=verifyPassengerService.getAllVerifyPassenger(users);
-        /*List<Passenger>passengers=new ArrayList<>();
-        List<Flight>flights=new ArrayList<>();
-        for(VerifyPassenger verifyPassenger: verifyPassengers){
-            passengers.add(verifyPassenger.getPassenger());
-            flights.add(verifyPassenger.getFlight());
-        }*/
         if (verifyPassengers != null) {
             model.addAttribute("verifyPassengers",verifyPassengers);
-            //model.addAttribute("flights", flights);
-            //model.addAttribute("passengers",passengers);
         } else {
             model.addAttribute("notFound", "Not Found");
             return "verifyBooking";
@@ -321,11 +313,12 @@ public class MainController {
 
 
     @PostMapping("/flight/book/cancel")
-    public String cancelTicket(@RequestParam("passengerId") long passengerId, Model model){
+    public String cancelTicket(@RequestParam("passengerId") long passengerId,@RequestParam("verifypassengerId") long verifypassengerId, Model model){
+        verifyPassengerService.deleteVerifyPassengerById(verifypassengerId);
         passengerService.deletePassengerById(passengerId);
         model.addAttribute("flights", flightService.getAllFlightsPaged(0));
         model.addAttribute("currentPage", 0);
-        return "flights";
+        return "verifyBooking";
     }
 
     @GetMapping("passengers")

@@ -10,4 +10,6 @@ public interface VerifyPassengerService {
     public abstract VerifyPassenger saveVerifyPassenger(VerifyPassenger verifyPassenger);
     public abstract List<VerifyPassenger> getAllVerifyPassenger(User user);
 
+    public abstract void deleteVerifyPassengerById(Long verifypassengerId);
+
 }
