@@ -22,11 +22,11 @@ public class SecurityUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optional = userRepository.findByUsername(username);
-        if(!optional.isPresent()){
+        User user = userRepository.findByUsername(username);
+        if(user == null){
             throw new UsernameNotFoundException(username + "사용자 없음");
         }else{
-            User user = optional.get();
+           // User user = optional.get();
             System.out.println("!!!!!!!!!!!!!!!!!!!!!");
             System.out.println(user.getRoles().get(0).getName());
             return new SecurityUser(user);
