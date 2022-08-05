@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface FlightService {
-    public abstract Page<Flight> getAllFlightsPaged(Pageable pageable);
+    public abstract Page<Flight> getAllFlightsPaged(Pageable pageNum);
     public abstract List<Flight> getAllFlights();
     public abstract Flight getFlightById(long flightId);
     public abstract Flight saveFlight(Flight flight);
