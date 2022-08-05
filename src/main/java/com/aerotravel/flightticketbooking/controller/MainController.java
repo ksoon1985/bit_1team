@@ -1,6 +1,7 @@
 package com.aerotravel.flightticketbooking.controller;
 
 import com.aerotravel.flightticketbooking.model.*;
+import com.aerotravel.flightticketbooking.repository.FlightRepository;
 import com.aerotravel.flightticketbooking.repository.RoleRepository;
 import com.aerotravel.flightticketbooking.repository.UserRepository;
 import com.aerotravel.flightticketbooking.services.*;
@@ -47,8 +48,30 @@ public class MainController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    FlightRepository flightRepository;
+
     @GetMapping("/")
-    public String showHomePage() {
+    public String showHomePage(Model model) {
+
+        // high chart1 불러오기 (도착 여행지 통계)
+        List<Airport> airports = airportService.getAllAirports();
+
+
+
+        // high chart2 불러오기 (저가 항공사 추천)
+        List<Object[]> highChartData = flightRepository.getHighChartData1();
+        System.out.println("###############"+highChartData.size()); //5개만 가져오게
+        Map<String, Integer> data = new LinkedHashMap<String, Integer>();
+
+        for(Object[] row : highChartData){
+            System.out.println(Arrays.toString(row));
+            data.put((String) row[1], ((Double)row[2]).intValue());
+        }
+
+        model.addAttribute("keySet", data.keySet());
+        model.addAttribute("values", data.values());
+
         return "index";
     }
 
