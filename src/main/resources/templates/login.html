@@ -16,11 +16,11 @@
         <form name="formLogin" th:action="@{/login}" method="post">
             <div th:if="${param.error}" class="alert alert-dismissible alert-danger login-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                Invalid username and/or password.
+                아이디 또는 비밀번호 일치하지 않습니다.
             </div>
             <div th:if="${param.logout}" class="alert alert-dismissible alert-primary">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                You have been signed out.
+                로그아웃 되었습니다.
             </div>
             <div class="int-area">
                 <!-- <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
