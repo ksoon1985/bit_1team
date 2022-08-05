@@ -8,7 +8,7 @@
     <div class="row">
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 10px">
-                <h1 style="color: darkblue">Add New Airport </h1>
+                <h1 style="color: darkblue">공항 등록</h1>
             </div>
 
         </div>
@@ -19,7 +19,7 @@
 
 
             <div class="form-group col-md-6">
-                <label class="col-form-label" for="airportCode">Airport code</label>
+                <label class="col-form-label" for="airportCode">공항 코드</label>
                 <span th:if="${#fields.hasErrors('airportCode')}" th:errors="*{airportCode}"
                       class="badge badge-danger"></span>
                 <input type="text" class="form-control" placeholder="" id="airportCode"
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label class="col-form-label" for="airportName">Airport Name</label>
+                <label class="col-form-label" for="airportName">공항 이름</label>
                 <span th:if="${#fields.hasErrors('airportName')}" th:errors="*{airportName}"
                       class="badge badge-danger"></span>
                 <input type="text" class="form-control" placeholder="" id="airportName"
@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="city">City</label>
+                <label class="col-form-label" for="city">국가</label>
                 <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
                       class="badge badge-danger"></span>
                 <input type="text" class="form-control" placeholder="" id="city"
@@ -43,7 +43,7 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="state">State</label>
+                <label class="col-form-label" for="state">시/군/구</label>
                 <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
                       class="badge badge-danger"></span>
                 <input type="text" class="form-control" placeholder="" id="state"
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="country">Country</label>
+                <label class="col-form-label" for="country">시/도</label>
                 <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"
                       class="badge badge-danger"></span>
                 <input type="text" class="form-control" placeholder="" id="country"
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group col-12">
-                <button type="submit" class="btn btn-success" style="float: right">Save</button>
+                <button type="submit" class="btn btn-success" style="float: right">저장</button>
             </div>
 
         </div>
