@@ -27,12 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // url 인증 관련
         security.authorizeRequests()
-                .antMatchers("/","/login","/signUp","/flight/search","/flight/book/verify", "/flight/book/cancel", "/img/**", "/css/**", "/js/**").permitAll()
-                .antMatchers( "/flight/book**", "/flight/book/new").authenticated()
+                .antMatchers("/","/login","/signUp/**","/signUp","/highcharts","/flight/search","/sample", "/flight/book/cancel", "/img/**", "/css/**", "/js/**").permitAll()
+                .antMatchers( "/flight/book**", "/flight/book/new", "/flight/**","/flight/book/verify").authenticated()
                 .antMatchers("/**").hasRole("ADMIN");
 
         // restful 허용
-        security.csrf().disable();
+        security.csrf().disable(); // ajax 통신하기 위해서
 
         // login security
         security.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error");

@@ -4,8 +4,7 @@ import com.aerotravel.flightticketbooking.model.*;
 import com.aerotravel.flightticketbooking.repository.RoleRepository;
 import com.aerotravel.flightticketbooking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,9 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -33,9 +34,13 @@ public class MainController {
     UserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Autowired
+    VerifyPassengerService verifyPassengerService;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/")
     public String showHomePage() {
@@ -49,30 +54,29 @@ public class MainController {
     }
 
     @PostMapping("/airport/new")
-    public String saveAirport(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult, Model model) {
+    public String saveAirport(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult,Pageable pageable, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("airport", new Airport());
             return "newAirport";
         }
         airportService.saveAirport(airport);
-        model.addAttribute("airports", airportService.getAllAirportsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
-
     @GetMapping("/airport/delete")
-    public String deleteAirport(@PathParam("airportId") int airportId, Model model) {
+    public String deleteAirport(@PathParam("airportId") int airportId,Pageable pageable, Model model){
         airportService.deleteAirport(airportId);
-        model.addAttribute("airports", airportService.getAllAirportsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
 
     @GetMapping("/airports")
-    public String showAirportsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("airports", airportService.getAllAirportsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showAirportsList(Pageable pageable, Model model) {
+        Page<Airport> page = airportService.getAllAirportsPaged(pageable);
+        model.addAttribute("airports", page);
         return "airports";
     }
 
@@ -83,30 +87,31 @@ public class MainController {
     }
 
     @PostMapping("/aircraft/new")
-    public String saveAircraft(@Valid @ModelAttribute("aircraft") Aircraft aircraft, BindingResult bindingResult, Model model) {
+    public String saveAircraft(@Valid @ModelAttribute("aircraft") Aircraft aircraft, BindingResult bindingResult,Pageable pageable, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("aircraft", new Aircraft());
             return "newAircraft";
         }
         aircraftService.saveAircraft(aircraft);
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(0));
-        model.addAttribute("currentPage", 0);
+
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
     @GetMapping("/aircraft/delete")
-    public String deleteAircraft(@PathParam("aircraftId") long aircraftId, Model model) {
+    public String deleteAircraft(@PathParam("aircraftId") long aircraftId,Pageable pageable,Model model){
         aircraftService.deleteAircraftById(aircraftId);
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
     @GetMapping("/aircrafts")
-    public String showAircraftsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("aircrafts", aircraftService.getAllAircraftsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showAircraftsList(Pageable pageable, Model model) {
+        Page<Aircraft> page = aircraftService.getAllAircraftsPaged(pageable);
+        model.addAttribute("aircrafts",page);
         return "aircrafts";
     }
 
@@ -125,6 +130,7 @@ public class MainController {
                              @RequestParam("aircraft") long aircraftId,
                              @RequestParam("arrivalTime") String arrivalTime,
                              @RequestParam("departureTime") String departureTime,
+                             Pageable pageable,
                              Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -149,23 +155,24 @@ public class MainController {
         flight.setArrivalTime(arrivalTime);
         flightService.saveFlight(flight);
 
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
     @GetMapping("/flight/delete")
-    public String deleteFlight(@PathParam("flightId") long flightId, Model model) {
+    public String deleteFlight(@PathParam("flightId") long flightId, Model model){
         flightService.deleteFlightById(flightId);
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
     @GetMapping("/flights")
-    public String showFlightsList(@RequestParam(defaultValue = "0") int pageNo, Model model) {
-        model.addAttribute("flights", flightService.getAllFlightsPaged(pageNo));
-        model.addAttribute("currentPage", pageNo);
+    public String showFlightsList( Pageable pageable, Model model) {
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
+
         return "flights";
     }
 
@@ -219,38 +226,10 @@ public class MainController {
         model.addAttribute("airports", airportService.getAllAirports());
         return "searchFlight";
     }
-
     @GetMapping("/sample")
     public String showflight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("flights", null);
-        return "sample";
-    }
-
-    @PostMapping("/sample")
-    public String searchsample(@RequestParam("departureAirport") int departureAirport,
-                               @RequestParam("departureTime") String departureTime,
-                               Model model) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate deptTime = LocalDate.parse(departureTime, dtf);
-        Airport depAirport = airportService.getAirportById(departureAirport);
-        List<Flight> flights = (List<Flight>) flightService.getAllFlightsByAirportTime(depAirport, deptTime);
-        HashMap<String, Integer> map = new HashMap<>();
-        if (flights.isEmpty()) {
-            model.addAttribute("notFound", "No Record Found!");
-        } else {
-            for (Flight list : flights) {
-                String s = list.getDestinationAirport().getAirportName();
-                if (map.containsKey(s)) {
-                    map.put(s, map.get(s) + 1);
-                } else {
-                    map.put(s, 1);
-                }
-            }
-            model.addAttribute("flights", map);
-        }
-
-        model.addAttribute("airports", airportService.getAllAirports());
         return "sample";
     }
 
@@ -276,9 +255,9 @@ public class MainController {
             return "bookFlight";
         }
         List<Flight> flights = flightService.getAllFlightsByAirportAndDepartureTime(depAirport, destAirport, deptTime);
-        if (flights.isEmpty()) {
+        if(flights.isEmpty()){
             model.addAttribute("notFound", "No Record Found!");
-        } else {
+        }else{
             model.addAttribute("flights", flights);
         }
         model.addAttribute("airports", airportService.getAllAirports());
@@ -299,6 +278,12 @@ public class MainController {
         passenger1.setFlight(flight);
         passengerService.savePassenger(passenger1);
         model.addAttribute("passenger", passenger1);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        String username = userDetails.getUsername();
+        User user= userRepository.findByusername(username);
+        VerifyPassenger verifyPassenger=new VerifyPassenger(flight,passenger,user);
+        verifyPassengerService.saveVerifyPassenger(verifyPassenger);
         return "confirmationPage";
     }
 
@@ -325,7 +310,7 @@ public class MainController {
             }
             if (passenger != null) {
                 return "verifyBooking";
-            } else {
+            }else{
                 model.addAttribute("notFound", "Not Found");
                 return "verifyBooking";
             }
@@ -337,15 +322,15 @@ public class MainController {
     }
 
     @PostMapping("/flight/book/cancel")
-    public String cancelTicket(@RequestParam("passengerId") long passengerId, Model model) {
+    public String cancelTicket(@RequestParam("passengerId") long passengerId, Model model){
         passengerService.deletePassengerById(passengerId);
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
+        Page<Flight> page = flightService.getAllFlightsPaged(pageable);
+        model.addAttribute("flights", page);
         return "flights";
     }
 
     @GetMapping("passengers")
-    public String showPassengerList(@RequestParam long flightId, Model model) {
+    public String showPassengerList(@RequestParam long flightId, Model model){
         List<Passenger> passengers = flightService.getFlightById(flightId).getPassengers();
         model.addAttribute("passengers", passengers);
         model.addAttribute("flight", flightService.getFlightById(flightId));
@@ -353,17 +338,15 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(){
         return "login";
     }
 
     @GetMapping("/signUp")
-    public String showSignUpPage() {
-        return "signUp";
-    }
+    public String showSignUpPage(){return "signUp";}
 
     @PostMapping("/signUp")
-    public String signUp(User user) {
+    public String signUp(User user){
 
         // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -379,9 +362,17 @@ public class MainController {
         return "redirect:/";
     }
 
-    @GetMapping("fancy")
-    public String showLoginPage1() {
-        return "index";
+    @RequestMapping("/signUp/usernameChk")
+    @ResponseBody
+    public Map<String, Object> usernameChk(@RequestParam String username){
+        System.out.println("###############username controller");
+        Map<String, Object> mv = new HashMap<>();
+        mv.put("result",userService.usernameChk(username));
+        return mv;
     }
 
+    @GetMapping("fancy")
+    public String showLoginPage1(){
+        return "index";
+    }
 }

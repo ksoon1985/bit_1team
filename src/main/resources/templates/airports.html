@@ -42,16 +42,33 @@
         </div>
         </tbody>
     </table>
+
     <div>
-        <ul class="pagination">
+        <ul class="pagination"
+            th:with="start=${T(Math).floor(airports.number/10)*10 + 1},last = (${start + 9 < airports.totalPages ? start +9 : airports.totalPages})"
+            th:style="${'justify-content:center'}">
+
             <li class="page-item disabled">
                 <a class="page-link" href="#">Pages:</a>
             </li>
-            <th:block th:each="i:${#numbers.sequence(1,airports.totalPages)}">
-                <li th:class="${currentPage}==(${i-1}) ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/airports(pageNo=(${i-1}))}" th:text="${i}"></a>
+
+            <li th:classappend="${airports.first} ? 'disabled'" class="page-link">
+                <a th:href="${airports.first} ? '#' :@{/airports(page=${airports.number})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <th:block th:each="page:${#numbers.sequence(start,last)}">
+                <li th:class="${page== airports.number + 1} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:href="@{/airports(page=${page})}" th:text="${page}"></a>
                 </li>
             </th:block>
+
+            <li th:classappend="${airports.last} ? 'disabled'" class="page-link">
+                <a th:href="${airports.last} ? '#' : @{/airports(page=${airports.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
         </ul>
 
 

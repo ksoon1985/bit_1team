@@ -3,7 +3,6 @@ package com.aerotravel.flightticketbooking.services;
 import com.aerotravel.flightticketbooking.model.Airport;
 import com.aerotravel.flightticketbooking.model.Flight;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -17,6 +16,8 @@ public interface FlightService {
     public abstract void deleteFlightById(long flightId);
     public abstract List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
     public abstract HashMap<String,Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
+    public abstract List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
+
     //public abstract List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate);
 
 }

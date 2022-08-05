@@ -7,12 +7,15 @@ import com.aerotravel.flightticketbooking.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class FlightServiceImpl implements FlightService {
 
@@ -23,8 +26,10 @@ public class FlightServiceImpl implements FlightService {
         this.flightRepository = flightRepository;
     }
     @Override
-    public Page<Flight> getAllFlightsPaged(int pageNum) {
-        return flightRepository.findAll(PageRequest.of(pageNum,5, Sort.by("departureAirport")));
+    public Page<Flight> getAllFlightsPaged(Pageable pageable) {
+        int page = (pageable.getPageNumber() ==0) ? 0:(pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page,20,Sort.by("departureAirport"));
+        return flightRepository.findAll(pageable);
     }
 
     @Override
@@ -51,8 +56,8 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate) {
         return flightRepository.findAllByDepartureAirportEqualsAndDestinationAirportEqualsAndDepartureDateEquals(depAirport, destAirport, depDate);
     }
-    public HashMap<String,Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
-        return flightRepository.findByDestinationAirportEqualsAndDepartureDateEquals(depAirport, depDate);
+    public List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
+        return flightRepository.findAllByDepartureAirportEqualsAndDepartureDateEquals(depAirport, depDate);
     }
 
 /*    @Override
