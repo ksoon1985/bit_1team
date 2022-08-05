@@ -8,7 +8,7 @@ public class VerifyPassenger {
     @Id
     @GeneratedValue
     private long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Flight flight;
     @ManyToOne
     private Passenger passenger;

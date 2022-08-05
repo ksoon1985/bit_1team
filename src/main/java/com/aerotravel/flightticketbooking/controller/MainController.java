@@ -52,18 +52,29 @@ public class MainController {
     public String showHomePage(Model model) {
 
         // high chart1 불러오기 (도착 여행지 통계)
-        List<Airport> airports = airportService.getAllAirports();
+        List<Passenger> passengerList = passengerService.getAllPassengers();
+        Iterator<Passenger> iter = passengerList.iterator();
+        HashMap<String, Integer> flightMap = new HashMap<>();
+        ArrayList<String> airport = new ArrayList<>();
 
+        while (iter.hasNext()) {
+            String airportName = iter.next().getFlight().getDestinationAirport().getAirportName();
+            airport.add(airportName); // size 확인
+        }
+        for (String name : airport) {
+            flightMap.put(name, Collections.frequency(airport, name)); // map.size 확인
+        }
+        model.addAttribute("airportList", flightMap);
 
 
         // high chart2 불러오기 (저가 항공사 추천)
         List<Object[]> highChartData = flightRepository.getHighChartData1();
-        System.out.println("###############"+highChartData.size()); //5개만 가져오게
+        System.out.println("###############" + highChartData.size()); //5개만 가져오게
         Map<String, Integer> data = new LinkedHashMap<String, Integer>();
 
-        for(Object[] row : highChartData){
+        for (Object[] row : highChartData) {
             System.out.println(Arrays.toString(row));
-            data.put((String) row[1], ((Double)row[2]).intValue());
+            data.put((String) row[1], ((Double) row[2]).intValue());
         }
 
         model.addAttribute("keySet", data.keySet());
@@ -206,22 +217,6 @@ public class MainController {
     public String showSearchFlightPage(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("flights", null);
-
-        List<Passenger> passengerList = passengerService.getAllPassengers();
-        Iterator<Passenger> iter = passengerList.iterator();
-        HashMap<String, Integer> flightMap = new HashMap<>();
-        ArrayList<String> airport = new ArrayList<>();
-
-        while (iter.hasNext()) {
-            String airportName = iter.next().getFlight().getDestinationAirport().getAirportName();
-            airport.add(airportName); // size 36이어야함
-//            System.out.println(airportName);
-        }
-        for (String name : airport) {
-            flightMap.put(name, Collections.frequency(airport, name)); // map.size 7이어야함
-//            System.out.println(Collections.frequency(airport, name));
-        }
-        model.addAttribute("airportList", flightMap);
         return "searchFlight";
     }
 

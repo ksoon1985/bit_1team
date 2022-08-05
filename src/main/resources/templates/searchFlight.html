@@ -57,26 +57,7 @@
             <div id="container">
             </div>
             <script th:inline="javascript">
-            var airport_list=new Array();
-            var count_value=new Array();
 
-             /*[# th:each="map : ${airportList}"]*/
-            airport_list.push(/*[[${map.key}]]*/);
-            count_value.push(/*[[${map.value}]]*/);
-             /*[/]*/
-
-           var air_array = [];
-            for(var i = 0; i<airport_list.length; i++){
-              air_array[i] = [];
-              for(var j=0; j<2; j++){
-                air_array[i][j] = null;
-              }
-            }
-
-            for(var i = 0; i < airport_list.length; i++){
-                air_array[i][0]= airport_list[i];
-                air_array[i][1] = count_value[i];
-            }
 
             const chart = Highcharts.chart('container', {
             chart: {
