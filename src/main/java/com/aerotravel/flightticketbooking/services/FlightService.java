@@ -8,10 +8,9 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface FlightService {
-    public abstract Page<Flight> getAllFlightsPaged(Pageable pageable);
+    public abstract Page<Flight> getAllFlightsPaged(Pageable pageNum);
     public abstract List<Flight> getAllFlights();
     public abstract Flight getFlightById(long flightId);
     public abstract Flight saveFlight(Flight flight);

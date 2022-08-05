@@ -4,7 +4,11 @@
       layout:decorate="~{layout/master-page}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/searchFlight.css}">
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 
 <body>
@@ -14,7 +18,6 @@
             <div class="col-md-12" style="margin-bottom: 10px">
                 <h1 style="color: darkblue">어디로 떠나볼까요?</h1>
             </div>
-
         </div>
     </div>
 
@@ -51,7 +54,38 @@
             <div class="form-group col-12">
                 <button type="submit" class="btn btn-success" style="float: right">조회하기</button>
             </div>
+            <div id="container">
+            </div>
+            <script th:inline="javascript">
 
+
+            const chart = Highcharts.chart('container', {
+            chart: {
+            type: 'pie',
+            options3d: {
+            enabled: true,
+            alpha: 45
+            }
+            },
+            title: {
+            text: '2022 가장 인기있는 국내 여행지는?'
+            },
+            subtitle: {
+            text: '사용자들의 선택'
+            },
+            plotOptions: {
+            pie: {
+            innerSize: 100,
+            depth: 45
+            }
+            },
+            series: [{
+            name: '비행기 예매 현황',
+            data: air_array
+            }]
+            });
+            </script>
+            <script src="/css/searchFlight.css"></script>
         </div>
     </form>
     <div class="row result-row">

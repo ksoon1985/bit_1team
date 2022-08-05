@@ -20,7 +20,7 @@ public class Airport {
 
 
     @OneToMany(mappedBy = "departureAirport")
-    List<Flight> flights = new ArrayList<Flight>();
+    List<Flight> flights = new ArrayList<>();
 
     public Airport() {
     }
