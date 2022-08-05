@@ -6,6 +6,11 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@900&family=Russo+One&family=Square+Peg&display=swap');
         .menu_wrap{
@@ -110,16 +115,6 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         </style>
 </head>
 
@@ -130,7 +125,8 @@
         <img th:src="@{/img/bitair.jpg}" class="bitair1" alt="" width="500" height="150">
     </div>
 
-    <div id="slideWrap" class="carousel" data-ride="carousel">
+    <div id="slideWrap" class="carousel" data-ride="carousel"
+         style="margin-bottom: 100px;">
 
         <div class="carousel-inner">
             <a class="carousel-control-prev" href="#slideWrap" data-slide="prev">
@@ -150,7 +146,10 @@
             </div>
         </div>
     </div>
-    <div id="slideWrap1" class="carousel slide" data-ride="carousel">
+
+
+
+<!--    <div id="slideWrap1" class="carousel slide" data-ride="carousel">
         <div class="menu_wrap">
             <div class="reserve">
                 <a class="reserve-a text-dark" href="#" ><i class="bi bi-calendar3-week"></i>예약조회</a>
@@ -162,9 +161,9 @@
                 <a class="flight text-dark" href="#"><i class="bi bi-calendar-date-fill"></i>운항정보</a>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <div class="cotainer2 text-center" >
+<!--    <div class="cotainer2 text-center" >
         <div class="row">
             <div class="col">
         <img th:src="@{/img/img1.jpg}" class="img-thumbnail " alt="...">
@@ -182,39 +181,14 @@
                         <img th:src="@{/img/img5.jpg}" class="img-thumbnail " alt="...">
                         </div>
         </div>
-    </div>
+    </div>-->
 
     <div id="imgtr" class="imgtr">
-        <h2 class="imgtrh">추천 항공권</h2>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/huku.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/saipan.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/jeju.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/sebu.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-    </div>
-
-    <div class="imgeverttext">
-        <a class="str1 text-dark " href="#">서울/인천 -> 후쿠오카</a>
-        <a class="str2 text-dark " href="#">인천 -> 사이판</a>
-        <a class="str3 text-dark " href="#">부산 -> 제주</a>
-        <a class="str4 text-dark " href="#">인천 -> 하와이</a>
-    </div>
-
-    <div class="one-way">
-        <strong class="one-way1">편도 총액</strong>
-        <strong class="one-way2">편도 총액</strong>
-        <strong class="one-way3">편도 총액</strong>
-        <strong class="one-way4">편도 총액</strong>
-    </div>
-
-    <div class="krw">
-        <strong class="krw1">KRW</strong>
-        <strong class="krw1-1 text-info">187,000~</strong>
-        <strong class="krw2 ">KRW</strong>
-        <strong class="krw1-1 text-info">213,000~</strong>
-        <strong class="krw3">KRW</strong>
-        <strong class="krw1-1 text-info">198,000~</strong>
-        <strong class="krw4">KRW</strong>
-        <strong class="krw1-1 text-info">209,000~</strong>
+        <div class="container">
+            <h2 align="center">High Chart</h2>
+            <div id="highChart1" style="width: 500px; height: 300px; margin: 0 auto" class="float-left"></div>
+            <div id="highChart2" style="width: 500px; height: 300px; margin: 0 auto" class="float-left"></div>
+        </div>
     </div>
 
     <div class="korona">
@@ -294,6 +268,98 @@
         </div>
     </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('highChart1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '평균 가격별 비교'
+        },
+        subtitle: {
+            text: 'Details'
+        },
+        xAxis: {
+            categories: [[${keySet}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 50000,
+            max:150000,
+            title: {
+                text: 'charge'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Name',
+            data: [[${values}]]
+        }]
+      });
+    });
+
+    $(function(){
+    Highcharts.chart('highChart2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '평균 가격별 비교'
+        },
+        subtitle: {
+            text: 'Details'
+        },
+        xAxis: {
+            categories: [[${keySet}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 50000,
+            max:150000,
+            title: {
+                text: 'charge'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Name',
+            data: [[${values}]]
+        }]
+      });
+    });
+</script>
 </th:block>
 </body>
 </html>
