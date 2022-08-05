@@ -22,7 +22,7 @@
         <div class="row">
 
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="departureAirport">출발지</label>
+                <label class="col-form-label" for="departureAirport">이륙 공항</label>
                 <select class="form-control" id="departureAirport" name="departureAirport">
                     <option th:each="airport, i:${airports}" th:text="${airport.airportName}"
                             th:value="${airport.airportId}">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="destinationAirport">도착지</label>
+                <label class="col-form-label" for="destinationAirport">착륙 공항</label>
                 <span th:if="${AirportError!=null}" th:text="${AirportError}"
                       class="badge badge-danger"></span>
                 <select class="form-control" id="destinationAirport" name="destinationAirport">
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="departureTime">가는날</label>
+                <label class="col-form-label" for="departureTime">이륙 일시</label>
                 <input type="date" class="form-control" placeholder="" id="departureTime"
                        name="departureTime" required>
             </div>
@@ -57,7 +57,7 @@
     <div class="row result-row">
         <th:block th:if="${notFound !=null}">
             <div class="col-12">
-                <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
+                <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">조회된 결과가 없습니다.</p>
             </div>
         </th:block>
         <th:block th:if="${flights!=null}">
@@ -74,11 +74,11 @@
                     <th scope="col">항공편</th>
                     <th scope="col">출발지</th>
                     <th scope="col">도착지</th>
-                    <th scope="col">출발시간</th>
-                    <th scope="col">도착시간</th>
-                    <th scope="col">비행요금</th>
+                    <th scope="col">이륙 일시</th>
+                    <th scope="col">착륙 일시</th>
+                    <th scope="col">비행 요금</th>
                     <th scope="col">항공사</th>
-                    <th scope="col">잔여좌석</th>
+                    <th scope="col">잔여 좌석</th>
                 </tr>
                 </thead>
                 <tbody>
