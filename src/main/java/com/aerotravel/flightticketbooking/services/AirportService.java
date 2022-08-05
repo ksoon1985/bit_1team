@@ -10,5 +10,5 @@ public interface AirportService {
     public abstract List<Airport> getAllAirports();
     public abstract Airport getAirportById(Integer airportId);
     public abstract Airport saveAirport(Airport airport);
-    public abstract void deleteAirport(Integer airpportId);
+    public abstract void deleteAirport(Integer airportId);
 }

@@ -4,6 +4,15 @@
       layout:decorate="~{layout/master-page}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/searchFlight.css}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript">
+
+    </script>
 </head>
 
 <body>
@@ -39,18 +48,66 @@
                     </option>
                 </select>
             </div>
-
+            </script>
             <div class="form-group col-md-4">
                 <label class="col-form-label" for="departureTime">가는날</label>
                 <input type="date" class="form-control" placeholder="" id="departureTime"
                        name="departureTime" required>
             </div>
-
-
             <div class="form-group col-12">
                 <button type="submit" class="btn btn-success" style="float: right">조회하기</button>
             </div>
+            <div id="container"></div>
+            <script th:inline="javascript">
+            var airport_list=new Array();
+            var count_value=new Array;
 
+            /*[# th:each="air : ${airportList}"]*/
+            airport_list.push(/*[[${air.key}]]*/);
+            count_value.push(/*[[${air.value}]]*/);
+             /*[/]*/
+
+            function array2(rows, columns){
+	            var arr = new Array(rows);
+                for(var i = 0; i < rows; i++){
+    	            arr[i] = new Array(colums);
+                     }
+                     return arr;
+                     }
+            var arr = array2(airport_list.length, 2);
+
+            for(var i = 0; i < airport_list.length; i++){
+            arr[i][0].push(airport_list[i]);
+            arr[i][1].push(count_value[i]);
+            }
+
+            const chart = Highcharts.chart('container', {
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: '2022 가장 인기있는 국내 여행지는?'
+                },
+                subtitle: {
+                    text: '사용자들의 선택'
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                series: [{
+                    name: '비행기 예매 현황',
+                    data: arr
+                }]
+            });
+            </script>
+            <script src="/css/searchFlight.css"></script>
         </div>
     </form>
     <div class="row result-row">
@@ -96,6 +153,7 @@
                 </div>
                 </tbody>
             </table>
+
 
         </th:block>
 

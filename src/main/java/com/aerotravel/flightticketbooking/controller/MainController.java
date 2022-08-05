@@ -192,14 +192,66 @@ public class MainController {
             return "searchFlight";
         }
         List<Flight> flights = flightService.getAllFlightsByAirportAndDepartureTime(depAirport, destAirport, deptTime);
+        List<Passenger> passengerList = passengerService.getAllPassengers();
+        Iterator<Passenger> iter = passengerList.iterator();
+        HashMap<String, Integer> flightMap = new HashMap<>(); // 차트부분
+
+
         if (flights.isEmpty()) {
             model.addAttribute("notFound", "No Record Found!");
         } else {
             model.addAttribute("flights", flights);
+            while (iter.hasNext()) { // 차트부분
+                int cnt = 1;
+                Passenger passenger = iter.next();
+                Airport airport = passenger.getFlight().getDestinationAirport();
+                String airportName = airport.getAirportName();
+                if (flightMap.containsKey(airportName)) {
+                    flightMap.put(airportName, cnt);
+                    cnt++;
+                } else {
+                    flightMap.put(airportName,cnt);
+                }
+            }
+            model.addAttribute("airportList", flightMap);
         }
 
         model.addAttribute("airports", airportService.getAllAirports());
         return "searchFlight";
+    }
+
+    @GetMapping("/sample")
+    public String showflight(Model model) {
+        model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("flights", null);
+        return "sample";
+    }
+
+    @PostMapping("/sample")
+    public String searchsample(@RequestParam("departureAirport") int departureAirport,
+                               @RequestParam("departureTime") String departureTime,
+                               Model model) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate deptTime = LocalDate.parse(departureTime, dtf);
+        Airport depAirport = airportService.getAirportById(departureAirport);
+        List<Flight> flights = (List<Flight>) flightService.getAllFlightsByAirportTime(depAirport, deptTime);
+        HashMap<String, Integer> map = new HashMap<>();
+        if (flights.isEmpty()) {
+            model.addAttribute("notFound", "No Record Found!");
+        } else {
+            for (Flight list : flights) {
+                String s = list.getDestinationAirport().getAirportName();
+                if (map.containsKey(s)) {
+                    map.put(s, map.get(s) + 1);
+                } else {
+                    map.put(s, 1);
+                }
+            }
+            model.addAttribute("flights", map);
+        }
+
+        model.addAttribute("airports", airportService.getAllAirports());
+        return "sample";
     }
 
     @GetMapping("/flight/book")
