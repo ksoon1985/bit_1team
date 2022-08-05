@@ -250,7 +250,7 @@ public class MainController {
     public String showflight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("flights", null);
-        return "sample";
+        return "flightStatus";
     }
 
     @PostMapping("/sample")
@@ -273,11 +273,12 @@ public class MainController {
                     map.put(s,1);
                 }
             }
+            model.addAttribute("departure",depAirport);
             model.addAttribute("flights", map);
         }
 
         model.addAttribute("airports", airportService.getAllAirports());
-        return "sample";
+        return "flightStatus";
     }
     @GetMapping("/flight/book")
     public String showBookFlightPage(Model model) {
@@ -350,7 +351,6 @@ public class MainController {
         return "verifyBooking";
     }
 
-    }
 
     @PostMapping("/flight/book/cancel")
     public String cancelTicket(@RequestParam("passengerId") long passengerId,@RequestParam("verifypassengerId") long verifypassengerId, Model model){
