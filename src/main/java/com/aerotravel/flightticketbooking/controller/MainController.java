@@ -322,7 +322,8 @@ public class MainController {
     public String cancelTicket(@RequestParam("passengerId") long passengerId,@RequestParam("verifypassengerId") long verifypassengerId, Model model){
         verifyPassengerService.deleteVerifyPassengerById(verifypassengerId);
         passengerService.deletePassengerById(passengerId);
-        return "verifyBooking";
+        return "redirect:/flight/book/verify";
+
     }
 
     @GetMapping("passengers")
