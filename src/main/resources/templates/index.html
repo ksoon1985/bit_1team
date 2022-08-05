@@ -103,23 +103,7 @@
         .container1{
             font-family: 'Nanum Myeongjo', serif;
             background-color: #F8F8F8;
-
         }
-        @media ( min-width: 1200px) {
-        .cotainer2{
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
         </style>
 </head>
 
@@ -167,55 +151,25 @@
     <div class="cotainer2 text-center" >
         <div class="row">
             <div class="col">
-        <img th:src="@{/img/img1.jpg}" class="img-thumbnail " alt="...">
+                <img th:src="@{/img/img1.jpg}" class="img-thumbnail " alt="...">
             </div>
             <div class="col">
-            <img th:src="@{/img/img2.jpg}" class="img-thumbnail " alt="...">
+                <img th:src="@{/img/img2.jpg}" class="img-thumbnail " alt="...">
             </div>
-                <div class="col">
-                    <img th:src="@{/img/img3.jpg}" class="img-thumbnail " alt="...">
-                </div>
-                    <div class="col">
-                    <img th:src="@{/img/img4.jpg}" class="img-thumbnail " alt="...">
-                    </div>
-                        <div class="col">
-                        <img th:src="@{/img/img5.jpg}" class="img-thumbnail " alt="...">
-                        </div>
+            <div class="col">
+                <img th:src="@{/img/img3.jpg}" class="img-thumbnail " alt="...">
+            </div>
+            <div class="col">
+                <img th:src="@{/img/img4.jpg}" class="img-thumbnail " alt="...">
+            </div>
+            <div class="col">
+                <img th:src="@{/img/img5.jpg}" class="img-thumbnail " alt="...">
+            </div>
         </div>
     </div>
 
-    <div id="imgtr" class="imgtr">
-        <h2 class="imgtrh">추천 항공권</h2>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/huku.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/saipan.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/jeju.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-        <a class="imgtrh1 " href="#"><img th:src="@{/img/sebu.jpg}" class="img-thumbnail2" alt="..." width="250" height="200"></a>
-    </div>
+    <div th:replace="highcharts :: chart"></div>
 
-    <div class="imgeverttext">
-        <a class="str1 text-dark " href="#">서울/인천 -> 후쿠오카</a>
-        <a class="str2 text-dark " href="#">인천 -> 사이판</a>
-        <a class="str3 text-dark " href="#">부산 -> 제주</a>
-        <a class="str4 text-dark " href="#">인천 -> 하와이</a>
-    </div>
-
-    <div class="one-way">
-        <strong class="one-way1">편도 총액</strong>
-        <strong class="one-way2">편도 총액</strong>
-        <strong class="one-way3">편도 총액</strong>
-        <strong class="one-way4">편도 총액</strong>
-    </div>
-
-    <div class="krw">
-        <strong class="krw1">KRW</strong>
-        <strong class="krw1-1 text-info">187,000~</strong>
-        <strong class="krw2 ">KRW</strong>
-        <strong class="krw1-1 text-info">213,000~</strong>
-        <strong class="krw3">KRW</strong>
-        <strong class="krw1-1 text-info">198,000~</strong>
-        <strong class="krw4">KRW</strong>
-        <strong class="krw1-1 text-info">209,000~</strong>
-    </div>
 
     <div class="korona">
         <img th:src="@{/img/korona.jpg}" width="1100">
