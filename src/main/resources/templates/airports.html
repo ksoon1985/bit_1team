@@ -10,21 +10,21 @@
 <th:block layout:fragment="content">
     <div class="row"  style="margin-bottom: 10px">
         <div class="col-md-6">
-            <h1 style="color: darkblue">Airports List </h1>
+            <h1 style="color: darkblue">공항</h1>
         </div>
         <div class="col-md-6">
-            <a href="/airport/new"><button type="button" class="btn btn-outline-primary" style="float: right">Add Airport</button></a>
+            <a href="/airport/new"><button type="button" class="btn btn-outline-primary" style="float: right">공항 등록</button></a>
         </div>
     </div>
     <table class="table table-hover">
         <thead>
         <tr class="table-active">
             <th scope="col">ID</th>
-            <th scope="col">Airport Code</th>
-            <th scope="col">Airport Name</th>
-            <th scope="col">City</th>
-            <th scope="col">State</th>
-            <th scope="col">Country</th>
+            <th scope="col">공항 코드</th>
+            <th scope="col">이름</th>
+            <th scope="col">국가</th>
+            <th scope="col">시/군/구</th>
+            <th scope="col">시/도</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -37,7 +37,7 @@
                 <td th:text="${airport.city}"></td>
                 <td th:text="${airport.state}"></td>
                 <td th:text="${airport.country}"></td>
-                <td ><a th:href="@{/airport/delete(airportId=${airport.airportId})}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="alert('are you sure you want to delete?')">Delete</button></a></td>
+                <td ><a th:href="@{/airport/delete(airportId=${airport.airportId})}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="alert('are you sure you want to delete?')">삭제</button></a></td>
             </tr>
         </div>
         </tbody>
@@ -70,8 +70,6 @@
                 </a>
             </li>
         </ul>
-
-
     </div>
 </th:block>
 </body>
