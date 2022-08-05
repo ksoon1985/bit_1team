@@ -322,8 +322,6 @@ public class MainController {
     public String cancelTicket(@RequestParam("passengerId") long passengerId,@RequestParam("verifypassengerId") long verifypassengerId, Model model){
         verifyPassengerService.deleteVerifyPassengerById(verifypassengerId);
         passengerService.deletePassengerById(passengerId);
-        model.addAttribute("flights", flightService.getAllFlightsPaged(0));
-        model.addAttribute("currentPage", 0);
         return "verifyBooking";
     }
 

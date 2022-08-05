@@ -54,8 +54,7 @@
             </thead>
             <div th:each="verifypassenger, iterStat:${verifyPassengers}">
                 <tr style="background-color: #fdfdfd">
-                    <th scope="row" th:text="${verifypassenger.passenger.passengerId}">Dark</th>
-                    <td th:text="${verifypassenger.passenger.firstName}"></td>
+                    <th scope="row"  th:text="${verifypassenger.passenger.firstName}"></th>>
                     <td th:text="${verifypassenger.passenger.lastName}"></td>
                     <td th:text="${verifypassenger.passenger.phoneNumber}"></td>
                     <td th:text="${verifypassenger.passenger.passportNumber}"></td>
