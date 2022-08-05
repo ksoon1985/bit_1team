@@ -38,7 +38,6 @@
         <table class="table table-hover">
             <thead>
             <tr class="table-active">
-                <th scope="col">ID</th>
                 <th scope="col">성</th>
                 <th scope="col">이름</th>
                 <th scope="col">전화번호</th>
@@ -68,6 +67,13 @@
                     <td th:text="${verifypassenger.flight.arrivalDate+' '+verifypassenger.flight.arrivalTime}"></td>
                     <td th:text="${verifypassenger.flight.flightCharge}"></td>
                     <td th:text="${verifypassenger.flight.aircraft.model}"></td>
+                    <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_AGENT')">
+                        <form method="post" action="/flight/book/cancel">
+                            <input type="hidden" th:value="${verifypassenger.passenger.passengerId}" name="passengerId">
+                            <input type="hidden" th:value="${verifypassenger.id}" name="verifypassengerId">
+                            <button type="submit" class="btn btn-sm btn-danger">Cancel This Ticket</button>
+                        </form>
+                    </th>
             </div>
 
             </tbody>
