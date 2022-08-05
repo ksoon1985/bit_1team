@@ -10,7 +10,11 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-
+    <script src="E:\bit_1team\src\main\resources\static\highcharts\highcharts.js"></script>
+    <script src="E:\bit_1team\src\main\resources\static\highcharts\highcharts-3d.js"></script>
+    <script src="E:\bit_1team\src\main\resources\static\highcharts\modules\exporting.js"></script>
+    <script src="E:\bit_1team\src\main\resources\static\highcharts\modules\export-data.js"></script>
+    <script src="E:\bit_1team\src\main\resources\static\highcharts\modules\accessibility.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@900&family=Russo+One&family=Square+Peg&display=swap');
         .menu_wrap{
@@ -271,52 +275,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script th:inline="javascript">
+    var airport_list=new Array();
+    var count_value=new Array();
+
+     /*[# th:each="map : ${airportList}"]*/
+    airport_list.push(/*[[${map.key}]]*/);
+    count_value.push(/*[[${map.value}]]*/);
+     /*[/]*/
+
+   var air_array = [];
+    for(var i = 0; i<airport_list.length; i++){
+      air_array[i] = [];
+      for(var j=0; j<2; j++){
+        air_array[i][j] = null;
+      }
+    }
+
+    for(var i = 0; i < airport_list.length; i++){
+        air_array[i][0]= airport_list[i];
+        air_array[i][1] = count_value[i];
+    }
+
     $(function(){
     Highcharts.chart('highChart1', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '평균 가격별 비교'
-        },
-        subtitle: {
-            text: 'Details'
-        },
-        xAxis: {
-            categories: [[${keySet}]],
-            crosshair: true
-        },
-        yAxis: {
-            min: 50000,
-            max:150000,
-            title: {
-                text: 'charge'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Name',
-            data: [[${values}]]
-        }]
-      });
+    chart: {
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45
+        }
+    },
+    title: {
+        text: '2022 가장 인기있는 국내 여행지는?'
+    },
+    subtitle: {
+        text: '사용자들의 선택'
+    },
+    plotOptions: {
+        pie: {
+            innerSize: 100,
+            depth: 45
+        }
+    },
+    series: [{
+        name: '비행기 예매 현황',
+        data: air_array
+            }]
+        });
     });
-
     $(function(){
     Highcharts.chart('highChart2', {
         chart: {

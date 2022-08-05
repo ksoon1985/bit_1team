@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -56,9 +55,10 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate) {
         return flightRepository.findAllByDepartureAirportEqualsAndDestinationAirportEqualsAndDepartureDateEquals(depAirport, destAirport, depDate);
     }
-    public List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
-        return flightRepository.findAllByDepartureAirportEqualsAndDepartureDateEquals(depAirport, depDate);
+    public HashMap<String, Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
+        return flightRepository.findByDestinationAirportEqualsAndDepartureDateEquals(depAirport, depDate);
     }
+
 /*    @Override
     public List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate) {
         return flightRepository.findAllFlightWithAnnotation2(depAirport,destAirport,depDate);

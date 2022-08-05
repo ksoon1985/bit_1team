@@ -24,4 +24,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             "group by b.aircraft_id)as t " +
             "where ranking <= 5 ",nativeQuery = true)
     List<Object[]> getHighChartData1();
+    @Query(value = "SELECT destination_airport_airport_id,count(*) FROM flight Group by destination_airport_airport_id", nativeQuery = true)
+    HashMap<String,Long> findByDestinationAirportEqualsAndDepartureDateEquals(Airport depAirport, LocalDate deptTime);
+
 }
