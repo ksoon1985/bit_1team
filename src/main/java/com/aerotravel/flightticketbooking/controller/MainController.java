@@ -273,6 +273,7 @@ public class MainController {
                     map.put(s,1);
                 }
             }
+            model.addAttribute("flight", flights);
             model.addAttribute("departure",depAirport);
             model.addAttribute("flights", map);
         }
