@@ -6,6 +6,7 @@ import com.aerotravel.flightticketbooking.services.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,11 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public Page<Airport> getAllAirportsPaged(int pageNum) {
-        return airportRepository.findAll(PageRequest.of(pageNum,5, Sort.by("airportName")));
+    public Page<Airport> getAllAirportsPaged(Pageable pageable) {
+        int page = (pageable.getPageNumber() ==0) ? 0:(pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page,20,Sort.by("airportName"));
+        return airportRepository.findAll(pageable);
+
     }
 
     @Override

@@ -6,13 +6,8 @@ import com.aerotravel.flightticketbooking.repository.RoleRepository;
 import com.aerotravel.flightticketbooking.repository.UserRepository;
 import com.aerotravel.flightticketbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.Collection;
 
 
 @Service
@@ -28,4 +23,9 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+    @Override
+    public boolean usernameChk(String username) {
+
+        return userRepository.existsByUsername(username);
+    }
 }

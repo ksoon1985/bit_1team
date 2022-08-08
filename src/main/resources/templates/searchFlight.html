@@ -2,24 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master-page}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/searchFlight.css}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
 
 <body>
 <th:block layout:fragment="content">
     <div class="row">
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 10px">
-                <h1 style="color: darkblue">Search a Flight</h1>
+                <h1 style="color: darkblue">어디로 떠나볼까요?</h1>
             </div>
-
         </div>
     </div>
 
-    <form action="/flight/search" method="post">
+    <form action="/flight/search" method="post" class="search-form">
         <div class="row">
 
-
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="departureAirport">From</label>
+                <label class="col-form-label" for="departureAirport">이륙 공항</label>
                 <select class="form-control" id="departureAirport" name="departureAirport">
                     <option th:each="airport, i:${airports}" th:text="${airport.airportName}"
                             th:value="${airport.airportId}">
@@ -28,7 +34,7 @@
             </div>
 
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="destinationAirport">To</label>
+                <label class="col-form-label" for="destinationAirport">착륙 공항</label>
                 <span th:if="${AirportError!=null}" th:text="${AirportError}"
                       class="badge badge-danger"></span>
                 <select class="form-control" id="destinationAirport" name="destinationAirport">
@@ -39,28 +45,59 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="departureTime">Departure Time</label>
+                <label class="col-form-label" for="departureTime">이륙 일시</label>
                 <input type="date" class="form-control" placeholder="" id="departureTime"
                        name="departureTime" required>
             </div>
 
 
             <div class="form-group col-12">
-                <button type="submit" class="btn btn-success" style="float: right">Search</button>
+                <button type="submit" class="btn btn-success" style="float: right">조회하기</button>
             </div>
+            <div id="container">
+            </div>
+            <script th:inline="javascript">
 
+
+            const chart = Highcharts.chart('container', {
+            chart: {
+            type: 'pie',
+            options3d: {
+            enabled: true,
+            alpha: 45
+            }
+            },
+            title: {
+            text: '2022 가장 인기있는 국내 여행지는?'
+            },
+            subtitle: {
+            text: '사용자들의 선택'
+            },
+            plotOptions: {
+            pie: {
+            innerSize: 100,
+            depth: 45
+            }
+            },
+            series: [{
+            name: '비행기 예매 현황',
+            data: air_array
+            }]
+            });
+            </script>
+            <script src="/css/searchFlight.css"></script>
         </div>
     </form>
-    <div class="row">
+    <div class="row result-row">
         <th:block th:if="${notFound !=null}">
             <div class="col-12">
-                <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
+                <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">조회된 결과가 없습니다.</p>
             </div>
         </th:block>
         <th:block th:if="${flights!=null}">
             <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-6">
-                    <h1 style="color: darkblue">Result </h1>
+                <div class="">
+                    <h1 style="color: darkblue">조회결과</h1>
                 </div>
 
             </div>
@@ -68,14 +105,14 @@
                 <thead>
                 <tr class="table-active">
                     <th scope="col">ID</th>
-                    <th scope="col">Flight Number</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                    <th scope="col">Departure time</th>
-                    <th scope="col">Arrival time</th>
-                    <th scope="col">Flight Charge</th>
-                    <th scope="col">Aircraft</th>
-                    <th scope="col">Available Seats</th>
+                    <th scope="col">항공편</th>
+                    <th scope="col">출발지</th>
+                    <th scope="col">도착지</th>
+                    <th scope="col">이륙 일시</th>
+                    <th scope="col">착륙 일시</th>
+                    <th scope="col">비행 요금</th>
+                    <th scope="col">항공사</th>
+                    <th scope="col">잔여 좌석</th>
                 </tr>
                 </thead>
                 <tbody>

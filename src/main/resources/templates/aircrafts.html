@@ -10,19 +10,19 @@
 <th:block layout:fragment="content">
     <div class="row"  style="margin-bottom: 10px">
         <div class="col-md-6">
-            <h1 style="color: darkblue">Aircrafts List </h1>
+            <h1 style="color: darkblue">항공기 </h1>
         </div>
         <div class="col-md-6">
-            <a href="/aircraft/new"><button type="button" class="btn btn-outline-primary" style="float: right">Add Aircraft</button></a>
+            <a href="/aircraft/new"><button type="button" class="btn btn-outline-primary" style="float: right">항공기 등록</button></a>
         </div>
     </div>
     <table class="table table-hover">
         <thead>
         <tr class="table-active">
             <th scope="col">ID</th>
-            <th scope="col">Manufacturer</th>
-            <th scope="col">Model</th>
-            <th scope="col">Number of seats</th>
+            <th scope="col">제조사</th>
+            <th scope="col">모델명</th>
+            <th scope="col">좌석 수</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -33,24 +33,38 @@
                 <td th:text="${aircraft.manufacturer}"></td>
                 <td th:text="${aircraft.model}"></td>
                 <td th:text="${aircraft.numberOfSeats}"></td>
-                <td ><a th:href="@{/aircraft/delete(aircraftId=${aircraft.aircraftId})}" ><button type="button" class="btn btn-outline-danger btn-sm"  onclick="alert('Are you sure you want to delete?')">Delete</button></a></td>
+                <td ><a th:href="@{/aircraft/delete(aircraftId=${aircraft.aircraftId})}" ><button type="button" class="btn btn-outline-danger btn-sm"  onclick="alert('Are you sure you want to delete?')">삭제</button></a></td>
             </tr>
         </div>
         </tbody>
     </table>
     <div>
-        <ul class="pagination">
+        <ul class="pagination"
+            th:with="start=${T(Math).floor(aircrafts.number/10)*10 + 1},last = (${start + 9 < aircrafts.totalPages ? start +9 : aircrafts.totalPages})"
+            th:style="${'justify-content:center'}">
+
             <li class="page-item disabled">
                 <a class="page-link" href="#">Pages:</a>
             </li>
-            <th:block th:each="i:${#numbers.sequence(1,aircrafts.totalPages)}">
-                <li th:class="${currentPage}==(${i-1}) ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/aircrafts(pageNo=(${i-1}))}" th:text="${i}"></a>
+
+            <li th:classappend="${aircrafts.first} ? 'disabled'" class="page-link">
+                <a th:href="${aircrafts.first} ? '#' :@{/aircrafts(page=${aircrafts.number})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <th:block th:each="page:${#numbers.sequence(start,last)}">
+                <li th:class="${page== aircrafts.number + 1} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:href="@{/aircrafts(page=${page})}" th:text="${page}"></a>
                 </li>
             </th:block>
+
+            <li th:classappend="${aircrafts.last} ? 'disabled'" class="page-link">
+                <a th:href="${aircrafts.last} ? '#' : @{/aircrafts(page=${aircrafts.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
         </ul>
-
-
     </div>
 </th:block>
 </body>

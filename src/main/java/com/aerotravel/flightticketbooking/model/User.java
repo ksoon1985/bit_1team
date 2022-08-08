@@ -1,6 +1,10 @@
 package com.aerotravel.flightticketbooking.model;
 
+import lombok.Builder;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,33 +17,33 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable=false)
-    @NotBlank(message = "* First Name is required")
+    @Column(nullable=true)
     private String firstname;
 
     @Column(name="middlename", nullable=true)
     private String middlename;
 
-    @Column(nullable=false)
-    @NotBlank(message = "* Last Name is required")
+    @Column(nullable=true)
     private String lastname;
 
     @Column(nullable=false, unique=true)
     @NotBlank(message = "* Username is required")
     private String username;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable=false)
     @NotBlank(message = "* Email is required")
     @Email(message="{errors.invalid_email}")
     private String email;
 
     @Column(nullable=false)
-    @NotBlank(message = "* Password is required")
     @Size(min=8)
     private String password;
 
+    private String provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
+    private String providerId;  // oauth2를 이용할 경우 아이디값
 
-    @ManyToMany(cascade=CascadeType.MERGE)
+
+    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name="users_roles",
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
@@ -110,4 +114,26 @@ public class User {
     {
         this.roles = roles;
     }
+
+    @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
+    public User(String username, String password, String lastname, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.lastname = lastname;
+
+    }
+
+    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
+    public User(String username, String password, String email,String lastname, String provider, String providerId) {
+
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.lastname = lastname;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+    public User(){}
+
 }

@@ -8,7 +8,7 @@
     <div class="row">
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 10px">
-                <h1 style="color: darkblue">Add New Aircraft </h1>
+                <h1 style="color: darkblue">항공기 등록</h1>
             </div>
 
         </div>
@@ -19,7 +19,7 @@
             <div class="col-md-6">
 
                 <div class="form-group">
-                    <label class="col-form-label" for="manufacturer">Manufacturer</label>
+                    <label class="col-form-label" for="manufacturer">제조사</label>
                     <span th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"
                           class="badge badge-danger"></span>
                     <input type="text" class="form-control" placeholder="" id="manufacturer"
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-form-label" for="model">Model</label>
+                    <label class="col-form-label" for="model">모델명</label>
                     <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
                           class="badge badge-danger"></span>
                     <input type="text" class="form-control" placeholder="" id="model"
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-form-label" for="numberOfSeats">Number of seats</label>
+                    <label class="col-form-label" for="numberOfSeats">좌석 수</label>
                     <span th:if="${#fields.hasErrors('numberOfSeats')}" th:errors="*{numberOfSeats}"
                           class="badge badge-danger"></span>
                     <input type="text" class="form-control" placeholder="" id="numberOfSeats"

@@ -1,5 +1,7 @@
 package com.aerotravel.flightticketbooking.services.servicesimpl;
 
+import com.aerotravel.flightticketbooking.model.Airport;
+import com.aerotravel.flightticketbooking.model.Flight;
 import com.aerotravel.flightticketbooking.model.Passenger;
 import com.aerotravel.flightticketbooking.repository.PassengerRepository;
 import com.aerotravel.flightticketbooking.services.PassengerService;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -42,5 +45,10 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public void deletePassengerById(Long passengerId) {
         passengerRepository.deleteById(passengerId);
+    }
+
+    @Override
+    public HashMap<String, Integer> getDestinationAirportNameAndCount(Passenger passenger) {
+        return passengerRepository.FindDestinationAirportCountByFlightId(passenger);
     }
 }

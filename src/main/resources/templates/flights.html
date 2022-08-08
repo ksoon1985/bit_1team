@@ -10,24 +10,24 @@
 <th:block layout:fragment="content">
     <div class="row"  style="margin-bottom: 10px">
         <div class="col-md-6">
-            <h1 style="color: darkblue">Flights List </h1>
+            <h1 style="color: darkblue">항공편</h1>
         </div>
         <div class="col-md-6">
-            <a href="/flight/new"><button type="button" class="btn btn-outline-primary" style="float: right">Add Flight</button></a>
+            <a href="/flight/new"><button type="button" class="btn btn-outline-primary" style="float: right">항공편 등록</button></a>
         </div>
     </div>
     <table class="table table-sm">
         <thead>
         <tr class="table-active">
             <th scope="col">ID</th>
-            <th scope="col">Flight Number</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Departure</th>
-            <th scope="col">Arrival</th>
-            <th scope="col">Flight Charge</th>
-            <th scope="col">Aircraft</th>
-            <th scope="col">Available Seats</th>
+            <th scope="col">항공편</th>
+            <th scope="col">출발지</th>
+            <th scope="col">도착지</th>
+            <th scope="col">이륙 일시</th>
+            <th scope="col">착륙 일시</th>
+            <th scope="col">비행 요금</th>
+            <th scope="col">항공사 / 항공기</th>
+            <th scope="col">잔여 좌석</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -45,21 +45,37 @@
                 <td th:text="${flight.aircraft.model}"></td>
                 <td th:text="${flight.aircraft.numberOfSeats - flight.passengers.size() +'/'+ flight.aircraft.numberOfSeats}"></td>
                 <td ><a th:href="@{/passengers(flightId=${flight.flightId})}">...</a></td>
-                <td ><a th:href="@{/flight/delete(flightId=${flight.flightId})}"><button type="button" class="btn btn-outline-danger btn-sm"  onclick="alert('Are you sure to cancel this flight?')">Cancel</button></a></td>
+                <td ><a th:href="@{/flight/delete(flightId=${flight.flightId})}"><button type="button" class="btn btn-outline-danger btn-sm"  onclick="alert('Are you sure to cancel this flight?')">삭제</button></a></td>
             </tr>
         </div>
         </tbody>
     </table>
-    <div>
-        <ul class="pagination">
+    <div th:if="${flights != null}">
+        <ul class="pagination"
+            th:with="start=${T(Math).floor(flights.number/10)*10 + 1},last = (${start + 9 < flights.totalPages ? start +9 : flights.totalPages})"
+            th:style="${'justify-content:center'}">
+
             <li class="page-item disabled">
                 <a class="page-link" href="#">Pages:</a>
             </li>
-            <th:block th:each="i:${#numbers.sequence(1,flights.totalPages)}">
-                <li th:class="${currentPage}==(${i-1}) ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/flights(pageNo=(${i-1}))}" th:text="${i}"></a>
+
+            <li th:classappend="${flights.first} ? 'disabled'" class="page-link">
+                <a th:href="${flights.first} ? '#' :@{/flights(page=${flights.number})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <th:block th:each="page:${#numbers.sequence(start,last)}">
+                <li th:class="${page== flights.number + 1} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:href="@{/flights(page=${page})}" th:text="${page}"></a>
                 </li>
             </th:block>
+
+            <li th:classappend="${flights.last} ? 'disabled'" class="page-link">
+                <a th:href="${flights.last} ? '#' : @{/flights(page=${flights.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
         </ul>
 
 

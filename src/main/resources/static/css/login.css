@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+* {margin: 0; padding: 0; box-sizing: border-box;}
+
+body {
+    position: relative;
+}
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  padding: 0 20%;
+  margin-top: 10%;
+  background-color: #fff;
+}
+.login-form h2 {
+  font-size: 28px;
+  color: #111;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.int-area {
+  position: relative;
+  width: 100%;
+  margin-top: 40px;
+}
+.int-area:first-child {
+  margin-top: 0;
+}
+.int-area input {
+  width: 100%;
+  padding: 20px 10px 10px;
+  border: none;
+  border-bottom: 1px solid #111;
+  font-size: 16px;
+  color: #111;
+  outline: none;
+}
+.int-area label {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  font-size: 16px;
+  color: #111;
+  transition: .5s ease;
+}
+.int-area label.warning {
+  color: red !important;
+  animation: warning .3s ease;
+  animation-iteration-count: 3;
+}
+@keyframes warning {
+  0% {transform: translateX(-8px);}
+  25% {transform: translateX(8px);}
+  50% {transform: translateX(-8px);}
+  75% {transform: translateX(8px);}
+}
+.int-area input:focus + label,
+.int-area input:valid + label {
+  top: -2px;
+  font-size: 13px;
+  color: #166cea;
+}
+.btn-area {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.btn-area button {
+  width: 100%;
+  height: 30px;
+  background-color: #3fb618;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+}
+.btn-area button:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #3fb618;
+  border: 1px solid #3fb618;
+}
+.btn-area button:active {
+  background-color: #3fb618;
+}
+.btn-area #kakaoSubmit {
+    background: url( "/img/kakao_login.png" ) no-repeat;
+    background-color: #FEE500;
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 25px;
+}
+
+h1.req {
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 20%;
+  color: #5F9EA0 !important;
+  animation: warning .7s ease;
+  animation-iteration-count: 1;
+}
+@keyframes req {
+  0% {transform: translateX(-8px);}
+  25% {transform: translateX(8px);}
+  50% {transform: translateX(-8px);}
+  75% {transform: translateX(8px);}
+}
+
+@media ( min-width: 300px ) {
+    .login-form {
+        padding: 0 30%;
+    }
+}
+
+@media ( min-width: 900px ) {
+  .login-form {
+    padding: 0 35%;
+  }
+  .login-form h2 {
+    margin-bottom: 50px;
+  }
+  .btn-area {
+    margin-top: 70px;
+  }
+  .btn-area button {
+    height: 40px;
+  }
+}
+
+@media ( min-width: 1500px ) {
+    .login-form {
+        padding: 0 40%;
+        margin-top: 15%;
+    }
+}

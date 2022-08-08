@@ -3,40 +3,48 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master-page}">
 
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <script defer type="text/javascript" th:src="@{/js/login.js}"></script>
+</head>
+
 <body>
 <th:block layout:fragment="content">
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 jumbotron">
-            <h2 style="text-align: center">Login Form</h2>
 
-            <form name="formLogin" th:action="@{/login}" method="post">
-                <div th:if="${param.error}" class="alert alert-dismissible alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Invalid username and/or password.
-                </div>
-                <div th:if="${param.logout}" class="alert alert-dismissible alert-primary">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    You have been signed out.
-                </div>
-                <div class="form-group">
-                    <label for="txtUsername">Username</label>
-                    <!-- <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-                          class="alert alert-danger"></span> -->
-                    <input id="txtUsername" name="username" type="text" class="form-control" autofocus="autofocus"/>
-                </div>
-                <div class="form-group">
-                    <label for="txtPassword">Password</label>
-                    <!-- <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                          class="alert alert-danger"></span> -->
-                    <input id="txtPassword" name="password" type="password" class="form-control"/>
-                </div>
-                <div style="float:right;">
-                    <a href="/" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
-                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Sign In</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <section class="login-form">
+        <h2>로그인</h2>
+        <form name="formLogin" th:action="@{/login}" method="post">
+            <div th:if="${param.error}" class="alert alert-dismissible alert-danger login-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Invalid username and/or password.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-dismissible alert-primary">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                You have been signed out.
+            </div>
+            <div class="int-area">
+                <!-- <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                      class="alert alert-danger"></span> -->
+                <input id="txtUsername" name="username" type="text" autofocus="autofocus" required/>
+                <label for="txtUsername">아이디</label>
+            </div>
+            <div class="int-area">
+                <!-- <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                      class="alert alert-danger"></span> -->
+                <input id="txtPassword" name="password" type="password" required/>
+                <label for="txtPassword">비밀번호</label>
+            </div>
+            <div class="btn-area">
+<!--                <a href="/" class="btn btn-outline-warning">Cancel</a>-->
+                <button id="btnSubmit" type="submit" class="btn btn-outline-success" onclick="login()">로그인</button>
+                <a href="/oauth2/authorization/kakao"><input id="kakaoSubmit" type="button" class="btn btn-outline-success"></input></a>
+            </div>
+
+
+
+        </form>
+    </section>
 </th:block>
+
 </body>
 </html>

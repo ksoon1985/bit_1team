@@ -21,6 +21,6 @@ public class FlightticketbookingApplication extends SpringBootServletInitializer
 
     public void addViewController(ViewControllerRegistry registry)
     {
-        registry.addViewController("/barChart").setViewName("barChart");
+        registry.addViewController("/static/highcharts").setViewName("static/highcharts");
     }
 }

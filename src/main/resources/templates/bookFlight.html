@@ -2,24 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master-page}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/searchFlight.css}">
+</head>
 
 <body>
 <th:block layout:fragment="content">
     <div class="row">
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 10px">
-                <h1 style="color: darkblue">Book a Flight</h1>
+                <h1 style="color: darkblue">어디로 떠나볼까요?</h1>
             </div>
 
         </div>
     </div>
 
-    <form action="/flight/book" method="post">
+    <form action="/flight/book" method="post" class="search-form">
         <div class="row">
 
 
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="departureAirport">From</label>
+                <label class="col-form-label" for="departureAirport">출발지</label>
                 <select class="form-control" id="departureAirport" name="departureAirport">
                     <option th:each="airport, i:${airports}" th:text="${airport.airportName}"
                             th:value="${airport.airportId}">
@@ -28,7 +31,7 @@
             </div>
 
             <div class="from-group col-md-4">
-                <label class="col-form-label" for="destinationAirport">To</label>
+                <label class="col-form-label" for="destinationAirport">도착지</label>
                 <span th:if="${AirportError!=null}" th:text="${AirportError}"
                       class="badge badge-danger"></span>
                 <select class="form-control" id="destinationAirport" name="destinationAirport">
@@ -39,28 +42,28 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label class="col-form-label" for="departureTime">Departure Time</label>
+                <label class="col-form-label" for="departureTime">가는날</label>
                 <input type="date" class="form-control" placeholder="" id="departureTime"
                        name="departureTime" required>
             </div>
 
 
             <div class="form-group col-12">
-                <button type="submit" class="btn btn-success" style="float: right">Search</button>
+                <button type="submit" class="btn btn-success" style="float: right">조회하기</button>
             </div>
-
         </div>
+
     </form>
-    <div class="row">
+    <div class="row result-row">
         <th:block th:if="${notFound !=null}">
             <div class="col-12">
                 <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
             </div>
         </th:block>
         <th:block th:if="${flights}">
-            <div class="row" style="margin-bottom: 10px">
+            <div class="row" style="margin-bottom: 10px; width:100%" >
                 <div class="col-md-6">
-                    <h1 style="color: darkblue">Result </h1>
+                    <h1 style="color: darkblue">조회결과</h1>
                 </div>
 
             </div>
@@ -102,7 +105,15 @@
         </th:block>
 
     </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
 
+        </p>
+    </figure>
 
 </th:block>
 </body>
