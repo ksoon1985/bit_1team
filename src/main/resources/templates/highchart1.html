@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:fragment="chart1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+
+    <div id="highChart1" style="width: 550px; height: 400px; margin: 0 auto; border-right: 2px solid #8FBC8F;"></div>
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script th:inline="javascript">
+        var airport_list=new Array();
+        var count_value=new Array();
+
+         /*[# th:each="map : ${airportList}"]*/
+        airport_list.push(/*[[${map.key}]]*/);
+        count_value.push(/*[[${map.value}]]*/);
+         /*[/]*/
+
+       var air_array = [];
+        for(var i = 0; i<airport_list.length; i++){
+          air_array[i] = [];
+          for(var j=0; j<2; j++){
+            air_array[i][j] = null;
+          }
+        }
+
+        for(var i = 0; i < airport_list.length; i++){
+            air_array[i][0]= airport_list[i];
+            air_array[i][1] = count_value[i];
+        }
+
+        $(function(){
+        Highcharts.chart('highChart1', {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: '2022 가장 인기있는 국내 여행지는?'
+        },
+        subtitle: {
+            text: '사용자들의 선택'
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: '비행기 예매 현황',
+            data: air_array
+                }]
+            });
+        });
+    </script>
+</th:block>
+
+</html>
