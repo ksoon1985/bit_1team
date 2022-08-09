@@ -16,7 +16,7 @@ public interface FlightService {
     public abstract Flight saveFlight(Flight flight);
     public abstract void deleteFlightById(long flightId);
     public abstract List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
-    public abstract HashMap<String,Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
+    public abstract List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate);
 
     //public abstract List<Flight> getAllFlightsByAirportAndDepartureTime2(Integer depAirport, Integer destAirport, String depDate);
 

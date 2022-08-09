@@ -55,8 +55,8 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate) {
         return flightRepository.findAllByDepartureAirportEqualsAndDestinationAirportEqualsAndDepartureDateEquals(depAirport, destAirport, depDate);
     }
-    public HashMap<String, Long> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
-        return flightRepository.findByDestinationAirportEqualsAndDepartureDateEquals(depAirport, depDate);
+    public List<Flight> getAllFlightsByAirportTime(Airport depAirport, LocalDate depDate){
+        return flightRepository.findAllByDepartureAirportEqualsAndDepartureDateEquals(depAirport, depDate);
     }
 
 /*    @Override
