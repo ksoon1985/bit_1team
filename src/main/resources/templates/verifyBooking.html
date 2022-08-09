@@ -33,7 +33,7 @@
         </th:block>
 
         <hr/>
-
+    </div>
 
         <table class="table table-hover">
             <thead>
@@ -50,8 +50,10 @@
                 <th scope="col">착륙 일시</th>
                 <th scope="col">비행 요금</th>
                 <th scope="col">항공기</th>
+                <th scope="col"></th>
             </tr>
             </thead>
+            <tbody>
             <div th:each="verifypassenger, iterStat:${verifyPassengers}">
                 <tr style="background-color: #fdfdfd">
                     <th scope="row" th:text="${verifypassenger.passenger.firstName}"></th>
@@ -74,13 +76,38 @@
                         </form>
                     </th>
             </div>
-
             </tbody>
 
         </table>
 
+        <div>
+            <ul class="pagination"
+                th:with="start=${T(Math).floor(verifyPassengers.number/10)*10 + 1},last = (${start + 9 < verifyPassengers.totalPages ? start +9 : verifyPassengers.totalPages})"
+                th:style="${'justify-content:center'}">
 
-    </div>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Pages:</a>
+                </li>
+
+                <li th:classappend="${verifyPassengers.first} ? 'disabled'" class="page-link">
+                    <a th:href="${verifyPassengers.first} ? '#' :@{/verifyPassengers(page=${verifyPassengers.number})}" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+
+                <th:block th:each="page:${#numbers.sequence(start,last)}">
+                    <li th:class="${page== verifyPassengers.number + 1} ? 'page-item active' : 'page-item'">
+                        <a class="page-link" th:href="@{/verifyPassengers(page=${page})}" th:text="${page}"></a>
+                    </li>
+                </th:block>
+
+                <li th:classappend="${verifyPassengers.last} ? 'disabled'" class="page-link">
+                    <a th:href="${verifyPassengers.last} ? '#' : @{/verifyPassengers(page=${verifyPassengers.number + 2})}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 </th:block>
 </body>
 </html>

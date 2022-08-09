@@ -8,6 +8,7 @@ import com.aerotravel.flightticketbooking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,11 +70,9 @@ public class MainController {
 
         // high chart2 불러오기 (저가 항공사 추천)
         List<Object[]> highChartData = flightRepository.getHighChartData1();
-        System.out.println("###############" + highChartData.size()); //5개만 가져오게
         Map<String, Integer> data = new LinkedHashMap<String, Integer>();
 
         for (Object[] row : highChartData) {
-            System.out.println(Arrays.toString(row));
             data.put((String) row[1], ((Double) row[2]).intValue());
         }
 
@@ -246,14 +245,14 @@ public class MainController {
         return "searchFlight";
     }
 
-    @GetMapping("/sample")
+    @GetMapping("/flightStatus")
     public String showflight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("flights", null);
         return "flightStatus";
     }
 
-    @PostMapping("/sample")
+    @PostMapping("/flightStatus")
     public String searchsample(@RequestParam("departureAirport") int departureAirport,
                                @RequestParam("departureTime") String departureTime,
                                Model model) {
@@ -335,13 +334,32 @@ public class MainController {
     }
 
     @GetMapping("/flight/book/verify")
-    public String showVerifyBookingPage(Model model) {
+    public String showVerifyBookingPage(Model model, Pageable pageable) {
+
+        boolean adminChk = false;
+        // 로그인을 한 유저 (시큐리티로 부터 얻을 수 있음)
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = (UserDetails) principal;
-        String username = userDetails.getUsername();
-        User users= userRepository.findByusername(username);
-        model.addAttribute("users",users);
-        List<VerifyPassenger> verifyPassengers=verifyPassengerService.getAllVerifyPassenger(users);
+
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        for (GrantedAuthority authority : authorities) {
+
+            if(authority.toString().equals("ROLE_ADMIN")){
+                adminChk = true;
+            }
+        }
+
+        Page<VerifyPassenger> verifyPassengers = null;
+        // admin 계정일 떈 모든 예약정보 다 보이게
+        if(adminChk){
+            verifyPassengers = verifyPassengerService.getAllVerifyPassenger(pageable);
+        }else{
+            String username = userDetails.getUsername();
+            User users= userRepository.findByusername(username);
+            model.addAttribute("users",users);
+            verifyPassengers = verifyPassengerService.getAllVerifyPassenger(users,pageable);
+        }
+
         if (verifyPassengers != null) {
             model.addAttribute("verifyPassengers",verifyPassengers);
         } else {

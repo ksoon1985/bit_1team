@@ -1,5 +1,8 @@
 package com.aerotravel.flightticketbooking.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +13,8 @@ public class VerifyPassenger {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     private Flight flight;
+
+    @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne
     private Passenger passenger;
     @ManyToOne
