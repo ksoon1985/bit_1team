@@ -99,44 +99,40 @@
                 <div class="">
                     <h1 style="color: darkblue">조회결과</h1>
                 </div>
-
             </div>
+
             <table class="table table-sm">
                 <thead>
-                <tr class="table-active">
-                    <th scope="col">ID</th>
-                    <th scope="col">항공편</th>
-                    <th scope="col">출발지</th>
-                    <th scope="col">도착지</th>
-                    <th scope="col">이륙 일시</th>
-                    <th scope="col">착륙 일시</th>
-                    <th scope="col">비행 요금</th>
-                    <th scope="col">항공사</th>
-                    <th scope="col">잔여 좌석</th>
-                </tr>
+                    <tr class="table-active">
+                        <th scope="col">ID</th>
+                        <th scope="col">항공편</th>
+                        <th scope="col">출발지</th>
+                        <th scope="col">도착지</th>
+                        <th scope="col">이륙 일시</th>
+                        <th scope="col">착륙 일시</th>
+                        <th scope="col">비행 요금</th>
+                        <th scope="col">항공사</th>
+                        <th scope="col">잔여 좌석</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <div th:each="flight, iterStat:${flights}">
-                    <tr style="background-color: #fdfdfd">
-                        <th scope="row" th:text="${flight.flightId}">Dark</th>
-                        <td th:text="${flight.flightNumber}"></td>
-                        <td th:text="${flight.departureAirport.airportName}"></td>
-                        <td th:text="${flight.destinationAirport.airportName}"></td>
-                        <td th:text="${flight.departureDate+' '+flight.departureTime}"></td>
-                        <td th:text="${flight.arrivalDate+' '+flight.arrivalTime}"></td>
-                        <td th:text="${flight.flightCharge}"></td>
-                        <td th:text="${flight.aircraft.model}"></td>
-                        <td th:text="${flight.aircraft.numberOfSeats - flight.passengers.size() +'/'+ flight.aircraft.numberOfSeats}"></td>
-                    </tr>
-                </div>
+                    <div th:each="flight, iterStat:${flights}">
+                        <tr style="background-color: #fdfdfd">
+                            <th scope="row" th:text="${flight.flightId}">Dark</th>
+                            <td th:text="${flight.flightNumber}"></td>
+                            <td th:text="${flight.departureAirport.airportName}"></td>
+                            <td th:text="${flight.destinationAirport.airportName}"></td>
+                            <td th:text="${flight.departureDate+' '+flight.departureTime}"></td>
+                            <td th:text="${flight.arrivalDate+' '+flight.arrivalTime}"></td>
+                            <td th:text="${flight.flightCharge}"></td>
+                            <td th:text="${flight.aircraft.model}"></td>
+                            <td th:text="${flight.aircraft.numberOfSeats - flight.passengers.size() +'/'+ flight.aircraft.numberOfSeats}"></td>
+                        </tr>
+                    </div>
                 </tbody>
             </table>
-
         </th:block>
-
     </div>
-
-
 </th:block>
 </body>
 </html>
